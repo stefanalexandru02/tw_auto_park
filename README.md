@@ -1,6 +1,6 @@
-# <Auto Park>
+# Auto Park
 
-Nume echipa: <IT Mafia>
+Nume echipa: IT Mafia
 
 Componenta echipa:
 
