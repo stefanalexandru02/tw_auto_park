@@ -92,3 +92,37 @@ body {
   border-radius: 10px;
   opacity: 0.8;
 }
+
+.contact_page_description_box { 
+  background-color: $backgroundColor;
+  color: white;
+  position: absolute;
+  top: 160px;
+  left: 50px;
+  padding: 20px;
+  padding-top: 10px;
+  border-radius: 10px;
+  opacity: 0.5;
+
+  textarea {
+    background-color: gray;
+    width: 400px;
+    
+  }
+}
+
+.stats_page_description_box { 
+  background-color: white;
+  color: white;
+  position: absolute;
+  top: 250px;
+  left: 50%;
+  transform: translate(-50%,0);
+  padding: 40px;
+  border-radius: 10px;
+  opacity: 0.7;
+
+  svg {
+    width: 600px;
+  }
+}
