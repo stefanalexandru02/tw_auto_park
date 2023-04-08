@@ -1,0 +1,108 @@
+$backgroundColor: #282828;
+$navbarColor: #212121;
+$navbarHoverColor: #473d3d;
+$accentColor: #6F1E51;
+
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+body {
+  margin: 0;
+  background-color: $backgroundColor;
+}
+
+.top_navigation {
+  overflow: hidden;
+  background-color: $navbarColor;
+
+  a {
+    float: left;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    padding-left: 16;
+    padding-right: 16;
+    height: 124px;
+
+    p {
+      font-family: 'Righteous', cursive;
+      padding-left: 18px;
+      padding-right: 18px;
+      padding-top: 20px;
+      font-size: 24px;
+    }
+
+    img {
+      height: 120px;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+  }
+
+  a:hover{
+    background-color: $navbarHoverColor;
+  }
+  
+  .search-container {
+    margin-top: 45px;
+    float: right;
+    border: 1px solid #ddd;
+    margin-right: 16px;
+
+    button {
+      float: right;
+      padding: 6px 10px;
+      background: #ddd;
+      font-size: 17px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ccc;
+    }
+  }
+  
+  input[type=text] {
+    padding: 6px;
+    color: white;
+    font-size: 17px;
+    border: none;
+    background-color: $backgroundColor;
+  }
+}
+
+// <style>
+//     .topnav a.active {
+//       background-color: #140101;
+//       color: #473d3d;
+//     }
+
+//     @media screen and (max-width: 600px) {
+//       .topnav .search-container {
+//         float: none;
+//       }
+//       .topnav a, .topnav input[type=text], .topnav .search-container button {
+//         float: none;
+//         display: block;
+//         text-align: left;
+//         width: 100%;
+//         margin: 0;
+//         padding: 14px;
+//       }
+//       .topnav input[type=text] {
+//         border: 1px solid #ccc;  
+//       }
+//     }
+
+
+//     .main_form
+//     {
+//         display: block;
+//         margin:auto;
+//         width: 80%;
+//         background-color: white;
+//         padding: 20px;
+//         margin-top: 20px;
+//     }
+//     </style>
