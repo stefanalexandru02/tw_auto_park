@@ -11,6 +11,7 @@ body {
 }
 
 .top_navigation {
+  z-index: 999;
   overflow: hidden;
   background-color: $navbarColor;
 
@@ -44,16 +45,17 @@ body {
   }
   
   .search-container {
-    margin-top: 37px;
+    margin-top: 32px;
     float: right;
     border: 1px solid #ddd;
+    border-radius: 5px;
     margin-right: 16px;
 
     button {
       float: right;
       padding: 6px 10px;
       background: #ddd;
-      font-size: 17px;
+      font-size: 24px;
       border: none;
       cursor: pointer;
     }
@@ -66,43 +68,27 @@ body {
   input[type=text] {
     padding: 6px;
     color: white;
-    font-size: 17px;
+    font-size: 24px;
     border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
     background-color: $backgroundColor;
   }
 }
 
-// <style>
-//     .topnav a.active {
-//       background-color: #140101;
-//       color: #473d3d;
-//     }
+.homepage_background {
+  z-index: -1;
+  margin-top: -104px;
+  width: 100%;
+}
 
-//     @media screen and (max-width: 600px) {
-//       .topnav .search-container {
-//         float: none;
-//       }
-//       .topnav a, .topnav input[type=text], .topnav .search-container button {
-//         float: none;
-//         display: block;
-//         text-align: left;
-//         width: 100%;
-//         margin: 0;
-//         padding: 14px;
-//       }
-//       .topnav input[type=text] {
-//         border: 1px solid #ccc;  
-//       }
-//     }
-
-
-//     .main_form
-//     {
-//         display: block;
-//         margin:auto;
-//         width: 80%;
-//         background-color: white;
-//         padding: 20px;
-//         margin-top: 20px;
-//     }
-//     </style>
+.main_page_description_box { 
+  background-color: $backgroundColor;
+  color: white;
+  position: absolute;
+  top: 250px;
+  left: 50px;
+  padding: 40px;
+  border-radius: 10px;
+  opacity: 0.8;
+}
