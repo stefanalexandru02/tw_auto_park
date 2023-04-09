@@ -12,5 +12,5 @@ Cum sa pornesti proiectul?
 
 Clone la repo:
 
-> cd src
-> npm start
+cd src
+npm start
