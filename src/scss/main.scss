@@ -49,26 +49,13 @@ body {
   a:hover{
     background-color: $navbarHoverColor;
   }
+
+  .active {
+    box-shadow: inset 0 -5px 0 white;
+  }
   
-  .search-container {
-    margin-top: 32px;
+  .float-right {
     float: right;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-right: 16px;
-
-    button {
-      float: right;
-      padding: 6px 10px;
-      background: #ddd;
-      font-size: 24px;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #ccc;
-    }
   }
   
   input[type=text] {
@@ -151,7 +138,46 @@ body {
   svg {
     width: 600px;
   }
+}
 
+.login_page_box { 
+  background-color: $navbarColor;
+  color: white;
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translate(-50%,0);
+  padding: 40px;
+  border-radius: 10px;
+  opacity: 0.9;
+  
+  h1 {
+    text-align: center;
+  }
+
+  input {
+    min-width: 300px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none!important;
+    outline: none!important;    
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid white;
+    border-radius: 10px;
+    outline: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -185,6 +211,13 @@ body {
       padding-bottom: 0;
      } 
     }
+    .active {
+      box-shadow: none;
+    }
+
+    .float-right{
+      float: initial;
+    }
   }
 
   .main_page_description_box {
@@ -196,6 +229,13 @@ body {
   }
   
   .stats_page_description_box {
+    position: initial;
+    top: initial;
+    left: initial;
+    transform: initial;
+  }
+
+  .login_page_box {
     position: initial;
     top: initial;
     left: initial;
