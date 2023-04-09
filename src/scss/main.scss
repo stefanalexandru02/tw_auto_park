@@ -74,12 +74,37 @@ body {
     border-bottom-left-radius: 5px;
     background-color: $backgroundColor;
   }
+
+  .icon {
+    display: none;
+  }
+}
+@media screen and (max-width: 600px) {
+  .top_navigation a:not(:first-child) {display: none;}
+  .top_navigation a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .top_navigation.responsive {position: relative;}
+  .top_navigation.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .top_navigation.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
 }
 
 .homepage_background {
   z-index: -1;
   margin-top: -104px;
-  width: 100%;
+  width: 100vw!important;
 }
 
 .main_page_description_box { 
@@ -91,7 +116,7 @@ body {
   padding: 40px;
   border-radius: 10px;
   opacity: 0.8;
-  width: 500px;
+  max-width: 500px;
 
   button {
     background: linear-gradient(45deg, rgb(40, 38, 38),#2d2d2d,#3a3939,#464444,#646161);
@@ -129,7 +154,7 @@ body {
   background-color: white;
   color: white;
   position: absolute;
-  top: 250px;
+  top: 150px;
   left: 50%;
   transform: translate(-50%,0);
   padding: 40px;
