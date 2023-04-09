@@ -49,26 +49,13 @@ body {
   a:hover{
     background-color: $navbarHoverColor;
   }
+
+  .active {
+    box-shadow: inset 0 -5px 0 white;
+  }
   
-  .search-container {
-    margin-top: 32px;
+  .float-right {
     float: right;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-right: 16px;
-
-    button {
-      float: right;
-      padding: 6px 10px;
-      background: #ddd;
-      font-size: 24px;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #ccc;
-    }
   }
   
   input[type=text] {
@@ -151,7 +138,54 @@ body {
   svg {
     width: 600px;
   }
+}
 
+.login_page_box { 
+  background-color: $navbarColor;
+  color: white;
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translate(-50%,0);
+  padding: 40px;
+  border-radius: 10px;
+  opacity: 0.9;
+  
+  h1 {
+    text-align: center;
+  }
+
+  input {
+    min-width: 300px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none!important;
+    outline: none!important;    
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid white;
+    border-radius: 10px;
+    outline: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  select {
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 10px;
+    outline: none;
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -185,6 +219,13 @@ body {
       padding-bottom: 0;
      } 
     }
+    .active {
+      box-shadow: none;
+    }
+
+    .float-right{
+      float: initial;
+    }
   }
 
   .main_page_description_box {
@@ -201,4 +242,152 @@ body {
     left: initial;
     transform: initial;
   }
+
+  .login_page_box {
+    position: initial;
+    top: initial;
+    left: initial;
+    transform: initial;
+  }
+}
+
+.admin_form {
+  color: white;
+  padding: 10px;
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid $navbarHoverColor;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: $navbarHoverColor;
+}
+
+.justify_between{
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-between;
+}
+
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-wrap{
+  border: 2px solid lightgrey;
+  width: 400px;
+  height: 400px;
+  margin: 10% 50px;
+  position: relative;
+  border-radius: 50%;
+  color: black;
+  overflow: hidden;
+}
+
+.pie-wrap .entry{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* *the individual entries* */
+
+.sky-blue{
+  background-color: lightskyblue;
+  height:50%;
+  width: 50%;
+  display: block;
+}
+
+.light-yellow{
+  background-color: lightyellow;
+  height:50%;
+  width: 50%;
+}
+
+.pink{
+  background-color: pink;
+  height:50%;
+  position: absolute;
+  top: 0px;
+  right: 0;
+  width: 50%;
+  clip-path: polygon(0 0, 100% 0%, 0% 100%);
+}
+
+.purple{
+  background-color: purple;
+  height:50%;
+  width: 50%;
+  right: 0;
+  top: 0;
+  position: absolute;
+  clip-path:polygon(0% 100%, 100% 0%, 100% 100%);
+}
+
+.green{
+  background-color: limegreen;
+  height:50%;
+  width: 50%;
+  right: 0;
+  top: 50%;
+  position: absolute;
+  clip-path:polygon(0% 0%, 100% 0%, 100% 100%);
+}
+
+.wheat{
+  background-color: wheat;
+  height:50%;
+  width: 50%;
+  right: 0;
+  top: 50%;
+  position: absolute;
+  clip-path:polygon(0% 0%, 100% 100%, 0% 100%);
+}
+
+.pie-wrap .purple p{
+  position: absolute;
+  top: 140px;
+  color: white;
+}
+.pie-wrap .purple p:first-child{
+  top: 120px;
+}
+
+.pie-wrap .green p{
+  position: absolute;
+  top: 20px;
+}
+
+.pie-wrap .green p:first-child{
+  top: 0px;
+}
+
+.pie-wrap .pink p, .pie-wrap .wheat p{
+  position: absolute;
+  left: 20px;
+  top: 80px;
+}
+
+.pie-wrap .pink, .pie-wrap .wheat{
+  justify-content: flex-start;
+}
+
+.pie-wrap .pink p:first-child, .pie-wrap .wheat p:first-child{
+  top: 100px;
 }

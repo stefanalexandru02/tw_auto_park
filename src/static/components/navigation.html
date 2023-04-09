@@ -2,14 +2,17 @@
     <a href="/"> 
         <img src="/resources/images/logo.png"/>
     </a>
-    <a href="/statistici.html">
+    <a href="/statistici_detalii.html" id="statistics_link">
         <p>Statistici</p>
     </a>
-    <a href="/contact.html">
+    <a href="/contact.html" id="contact_link">
         <p>Contact</p>
     </a>
-    <a href="/despre.html">
+    <a href="/despre.html" id="about_link">
         <p>Despre</p>
+    </a>
+    <a href="/login.html" id="login_link" class="float-right">
+        <p>Autentifica</p>
     </a>
     <!-- <div class="search-container">
         <form action="/action_page.php">
@@ -21,3 +24,22 @@
         <i class="fa fa-bars"></i>
     </a>
 </div>
+<script>
+    switch(window.location.pathname)
+    {
+        case "/statistici_harta.html":
+        case "/statistici_detalii.html":
+            document.getElementById("statistics_link").className = "active";
+            break;
+        case "/contact.html":
+            document.getElementById("contact_link").className = "active";
+            break;
+        case "/despre.html":
+            document.getElementById("about_link").className = "active";
+            break;
+        case "/login.html":
+        case "/register.html":
+            document.getElementById("login_link").className = "float-right active";
+            break;
+    }
+</script>
