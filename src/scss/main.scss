@@ -242,3 +242,27 @@ body {
     transform: initial;
   }
 }
+
+.admin_form {
+  color: white;
+  padding: 10px;
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid $navbarHoverColor;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: $navbarHoverColor;
+}
