@@ -91,6 +91,20 @@ body {
   padding: 40px;
   border-radius: 10px;
   opacity: 0.8;
+  width: 500px;
+
+  button {
+    background: linear-gradient(45deg, rgb(40, 38, 38),#2d2d2d,#3a3939,#464444,#646161);
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid white;
+    border-radius: 10px;
+    outline: none;
+  }
+
+  button:hover{
+    border: 1px solid $accentColor;
+  }
 }
 
 .contact_page_description_box { 
