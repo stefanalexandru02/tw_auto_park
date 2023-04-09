@@ -14,4 +14,6 @@ Clone la repo:
 
 cd src
 
+npm install
+
 npm start
