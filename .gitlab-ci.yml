@@ -5,6 +5,7 @@ stages:
 # variables:
 #   KUBECONFIG: /.kube/config
 
+
 build_tw_atuo_park:
   stage: build
   image: node:14-alpine3.17
