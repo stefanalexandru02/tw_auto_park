@@ -1,0 +1,44 @@
+stages:
+  - build
+  - deploy
+
+# variables:
+#   KUBECONFIG: /.kube/config
+ 
+build_tw_atuo_park:
+  stage: build
+  image: node:14-alpine3.17
+  variables:
+    CI: 'False'
+  retry: 2
+  before_script:
+    - cd src
+    - apk add --no-cache git
+  script: 
+    - npm install --force 
+    # - npm run build
+  # artifacts:
+  #   paths:
+  #   - shared/dist
+
+# deploy_pdf_render_service:
+#   stage: deploy
+#   needs:
+#     - build_pdf_render_service
+#   only: 
+#     changes:
+#       - "Services/PdfRenderService/**/*"
+#   image:
+#     name: bitnami/kubectl:latest
+#     entrypoint: [""]
+#   cache: []
+#   retry: 2
+#   before_script:
+#     - sed -ie "s/deploy-date-value/$(date)/g" kubernetes/pdfrenderservice.yaml
+#     - mkdir -p .kube/ && touch .kube/config
+#     - echo ${KUBERNETES_KUBE_CONFIG} | base64 -d -i > ${KUBECONFIG}
+#   script:
+#     - kubectl config get-contexts
+#     - kubectl apply -f kubernetes/pdfrenderservice.yaml
+
+# --clean true shouldn't be used for all appdomains yet. Double check before adding that just in case
