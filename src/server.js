@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 import * as http from 'node:http';
 import * as path from 'node:path';
+import { routeRequest } from './api/requestRouter.js';
 
 const PORT = 8000;
 
@@ -34,12 +35,17 @@ const prepareFile = async (url) => {
 };
 
 http.createServer(async (req, res) => {
-  const file = await prepareFile(req.url);
-  const statusCode = file.found ? 200 : 404;
-  const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
-  res.writeHead(statusCode, { 'Content-Type': mimeType });
-  file.stream.pipe(res);
-  console.log(`${req.method} ${req.url} ${statusCode}`);
+  if(req.url.startsWith('/api/')) {
+    routeRequest(req, res);
+  }
+  else {
+    const file = await prepareFile(req.url);
+    const statusCode = file.found ? 200 : 404;
+    const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
+    res.writeHead(statusCode, { 'Content-Type': mimeType });
+    file.stream.pipe(res);
+    console.log(`${req.method} ${req.url} ${statusCode}`);
+  }
 }).listen(PORT);
 
 console.log(`Server running at http://127.0.0.1:${PORT}/`);
