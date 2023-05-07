@@ -1,4 +1,4 @@
-import { loginUser } from "./login.js";
+import { decodeToken, loginUser } from "./login.js";
 
 export const routeRequest = (req, response) => {
     if(req.method === 'POST' && req.url === '/api/authenticate_user') {
@@ -10,13 +10,29 @@ export const routeRequest = (req, response) => {
             const username = auth_payload["USERNAME"];
             const password = auth_payload["PASSWORD"];
 
-            const token = loginUser(username, password);
-            response.write(token);
-            response.end();
+            loginUser(username, password, (token) => {
+                if(token === "NOT_AUTHORIZED") {
+                    response.writeHead(401, { 'Content-Type': 'application/json' });
+                    response.write(token);
+                    response.end();
+                } else {
+                    response.write(token);
+                    response.end();
+                }
+            });
         });
     } else {
-        response.writeHead(400, { 'Content-Type': 'application/json' });
-        response.write('');
-        response.end();
+        try {
+            const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
+            console.log(decodeToken(authorizationToken));
+
+            response.writeHead(400, { 'Content-Type': 'application/json' });
+            response.write('');
+            response.end();
+        } catch(ex) {
+            response.writeHead(401, { 'Content-Type': 'application/json' });
+            response.write('');
+            response.end();
+        }
     }
 }

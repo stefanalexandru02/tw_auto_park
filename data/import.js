@@ -17,7 +17,14 @@ db.exec(`
       combustibil         VARCHAR(50),
       total         NUMERIC
     );
+
+    CREATE TABLE users
+    (
+        username  VARCHAR(50),
+        password   VARCHAR(50)
+    );
 `, ()=> {
+    db.run("insert into users (username,password) values ('test', 'test');");
     fs.readdir(".", (err, files) => {
         files.forEach(file => {
             if(file.includes(".csv"))

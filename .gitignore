@@ -2,8 +2,8 @@
 /src/static/resources/css
 /src/package-lock.json
 
-/data_sources/node_modules
-/data_sources/package-lock.json
+/data/node_modules
+/data/package-lock.json
 
 database.db
 database.db-journal
