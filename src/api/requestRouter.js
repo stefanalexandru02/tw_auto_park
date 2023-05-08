@@ -21,7 +21,10 @@ export const routeRequest = (req, response) => {
                 }
             });
         });
-    } else {
+    // } else if(req.method === 'GET' && req.url === '/api/get_statistics'){
+    //     console.log("TODO");
+    }
+    else {
         try {
             const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
             console.log(decodeToken(authorizationToken));
