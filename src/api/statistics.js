@@ -97,3 +97,53 @@ const hasPreviousWhere = (filters, type) => {
 const hasType = (filters, type) => {
     return filters[type] !== undefined;
 }
+
+export const GetJudete = (callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+    db.all(
+        'select distinct judet from masini;', 
+        { },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+}
+
+export const GetCategorii = (callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+    db.all(
+        'select distinct categorie from masini;', 
+        { },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+}
+export const GetAni = (callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+    db.all(
+        'select distinct an from masini;', 
+        { },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+}

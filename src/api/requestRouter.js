@@ -1,6 +1,6 @@
 import { decodeToken, loginUser } from "./login.js";
 import {getParams} from '../utilities.js';
-import { GetStatistics } from "./statistics.js";
+import { GetJudete, GetStatistics, GetCategorii, GetAni } from "./statistics.js";
 
 export const routeRequest = (req, response) => {
     if(req.method === 'POST' && req.url === '/api/authenticate_user') {
@@ -40,7 +40,34 @@ export const routeRequest = (req, response) => {
                 response.end();
             }
         );
-    } else {
+    } else if(req.method === 'GET' && req.url === '/api/statistics/judete') {
+        GetJudete((rows)=>{
+            const judete = [];
+            for( let i=0;i<rows.length;i++)
+                judete.push(rows[i]["judet"]);
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify(judete));
+            response.end();
+        });
+    } else if(req.method === 'GET' && req.url === '/api/statistics/categorie') {
+        GetCategorii((rows)=>{
+            const categorii = [];
+            for( let i=0;i<rows.length;i++)
+                categorii.push(rows[i]["categorie"]);
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify(categorii));
+            response.end();
+        });
+    }else if(req.method === 'GET' && req.url === '/api/statistics/an') {
+        GetAni((rows)=>{
+            const ani = [];
+            for( let i=0;i<rows.length;i++)
+                ani.push(rows[i]["an"]);
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify(ani));
+            response.end();
+        });
+    }else {
         try {
             const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
             console.log(decodeToken(authorizationToken));
