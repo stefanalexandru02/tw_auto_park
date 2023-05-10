@@ -49,7 +49,7 @@ export const routeRequest = (req, response) => {
             response.write(JSON.stringify(judete));
             response.end();
         });
-    } else if(req.method === 'GET' && req.url === '/api/statistics/categorie') {
+    } else if(req.method === 'GET' && req.url === '/api/statistics/categorii') {
         GetCategorii((rows)=>{
             const categorii = [];
             for( let i=0;i<rows.length;i++)
@@ -58,7 +58,7 @@ export const routeRequest = (req, response) => {
             response.write(JSON.stringify(categorii));
             response.end();
         });
-    }else if(req.method === 'GET' && req.url === '/api/statistics/an') {
+    }else if(req.method === 'GET' && req.url === '/api/statistics/ani') {
         GetAni((rows)=>{
             const ani = [];
             for( let i=0;i<rows.length;i++)

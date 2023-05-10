@@ -391,3 +391,20 @@ tr:nth-child(even) {
 .pie-wrap .pink p:first-child, .pie-wrap .wheat p:first-child{
   top: 100px;
 }
+
+.pagination {
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.pagination a {
+  color: white;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: rgb(68, 59, 59);
+  color: white;
+}
