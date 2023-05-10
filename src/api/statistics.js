@@ -1,7 +1,39 @@
-export const GetStatistics = (an, judet, categorie, categorie_com, marca, combustibil) => {
+import sqlite3 from 'sqlite3';
+const dbFilePath = "../database.db";
+
+export const GetStatistics = (an, judet, categorie, categorie_com, marca, combustibil, pageIndex = undefined, pageSize = undefined, callback) => {
+    const querry = GetStatisticsQuery(an, judet, categorie, categorie_com, marca, combustibil, pageIndex, pageSize);
+    const db = new sqlite3.Database(dbFilePath);
+    console.log(`Executing '${querry}'`);
+    db.all(
+        querry, 
+        {
+            $an: an,
+            $judet: judet,
+            $categorie: categorie, 
+            $categorie_com: categorie_com,
+            $marca: marca,
+            $combustibil: combustibil
+        },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+    return querry;
+}
+
+const GetStatisticsQuery = (an, judet, categorie, categorie_com, marca, combustibil, 
+    pageIndex = undefined, pageSize = undefined
+) => {
     let querry = "select * from masini";
     let hasFilters = an || judet || categorie || categorie_com || marca || combustibil;
-    filters = {
+    let filters = {
         an: an, 
         judet: judet, 
         categorie: categorie, 
@@ -40,19 +72,24 @@ export const GetStatistics = (an, judet, categorie, categorie_com, marca, combus
             querry = `${querry} combustibil = $combustibil`
         }
     }
+    if(pageIndex && pageSize)
+    {
+        querry = `${querry} limit ${pageSize} offset ${pageSize * pageIndex}`;
+    }
+    return querry;
 }
 
 const hasPreviousWhere = (filters, type) => {
     if(type === 'an') 
         return false;
     if(type === 'judet') 
-        return hasType['an'];
+        return hasType(filters,'an');
     if(type === 'categorie') 
         return hasPreviousWhere(filters, 'judet') || hasType(filters, 'judet')
     if(type === 'categorie_com')
-        return hasPreviousWhere(fitlers, 'categorie') || hasType(filters, 'categorie');
+        return hasPreviousWhere(filters, 'categorie') || hasType(filters, 'categorie');
     if(type === 'marca')
-        return hasPreviousWhere(fitlers, 'categorie_com') || hasType(filters, 'categorie_com');
+        return hasPreviousWhere(filters, 'categorie_com') || hasType(filters, 'categorie_com');
     if(type === 'combustibil')
         return hasPreviousWhere(filters, 'marca') || hasType(filters, 'marca');
 }

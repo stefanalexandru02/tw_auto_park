@@ -8,7 +8,7 @@ const db = connectToDatabase();
 db.exec(`
     CREATE TABLE masini
     (
-      year       VARCHAR(50),
+      an       NUMERIC,
       judet VARCHAR(50),
       categorie   VARCHAR(50),
       categorie_com        VARCHAR(50),
@@ -48,7 +48,7 @@ db.exec(`
                                 const total = parts[6].replace('"', '').replace('"', '');
     
                                 try {
-                                    const querry =  `insert into masini (year, judet, categorie, categorie_com, marca, desc, combustibil, total) VALUES ($year, $judet, $categorie, $categorie_com, $marca, $desc, $combustibil, $total);`;
+                                    const querry =  `insert into masini (an, judet, categorie, categorie_com, marca, desc, combustibil, total) VALUES ($year, $judet, $categorie, $categorie_com, $marca, $desc, $combustibil, $total);`;
                                     await db.run(querry, {
                                         $year: year, 
                                         $judet: judet, 
