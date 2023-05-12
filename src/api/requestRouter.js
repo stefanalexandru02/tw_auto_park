@@ -1,6 +1,8 @@
 import { decodeToken, loginUser, registerUser } from "./login.js";
 import {getParams} from '../utilities.js';
 import { GetJudete, GetStatistics, GetCategorii, GetAni } from "./statistics.js";
+import fs from 'fs';
+import crypto from 'crypto';
 
 export const routeRequest = (req, response) => {
     if(req.method === 'POST' && req.url === '/api/authenticate_user') {
@@ -23,7 +25,7 @@ export const routeRequest = (req, response) => {
                 }
             });
         });
-    } else if(req.method === 'POST' && req.url === '/api/register_user'){
+    } else if(req.method === 'POST' && req.url === '/api/register_user') {
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -86,6 +88,40 @@ export const routeRequest = (req, response) => {
             response.writeHead(200, { 'Content-Type': 'application/json' });
             response.write(JSON.stringify(ani));
             response.end();
+        });
+    } else if(req.method === 'POST' && req.url === '/api/statistics/generate_csv') {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+
+            const params = JSON.parse(body);
+            GetStatistics(
+                params['an'],
+                params['judet'],
+                params['categorie'],
+                params['categorie_com'],
+                params['marca'],
+                params['combustibil'],
+                undefined,
+                undefined,
+                (rows, rowsCount) => {
+                    const file = `${crypto.randomUUID()}.txt`;
+                    try { fs.mkdirSync('static/files'); } catch(e) { }
+                    let csv_table = `an;judet;categorie;categorie_com;marca;desc;combustibil;total\n`;
+                    for(let i = 0; i < rows.length; i++) {
+                        const row = rows[i];
+                        csv_table += `${row['an']};${row['judet']};${row['categorie']};${row['categorie_com']};${row['marca']};${row['desc']};${row['combustibil']};${row['total']}\n`;
+                    }
+                    fs.writeFile(`static/files/${file}`, csv_table, err => {
+                        if (err) {
+                          console.error(err);
+                        }
+                      });
+                    response.writeHead(200, { 'Content-Type': 'application/json' });
+                    response.write(`/files/${file}`);
+                    response.end();
+                }
+            );
         });
     } else if(req.method === 'GET' && req.url === '/api/check_auth') {
         try {
