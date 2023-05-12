@@ -28,6 +28,32 @@ export const loginUser = (username, password, callback) => {
     );
 }
 
+export const registerUser = (username, password, callback) =>{
+    const db = new sqlite3.Database(dbFilePath);
+    db.get(
+        `select count (*) as ok from users where username = $username`,
+        {
+            $username: username,
+        },
+        (err, row) => {
+            const found = row.ok;
+            db.close();
+            
+            if(found === 0) {
+                db.run("insert into users (username,password) values ($username, $password);",
+                {
+                    $username: username,
+                    $password: password
+                }, (errInsert, e) => {
+                    callback("OK");
+                });
+            } else {
+                callback("user already exists");
+            }
+        }
+    )
+}
+
 export const decodeToken = (token) => {
     return jwt.verify(token, 'key');
 }

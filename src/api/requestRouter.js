@@ -1,4 +1,4 @@
-import { decodeToken, loginUser } from "./login.js";
+import { decodeToken, loginUser, registerUser } from "./login.js";
 import {getParams} from '../utilities.js';
 import { GetJudete, GetStatistics, GetCategorii, GetAni } from "./statistics.js";
 
@@ -23,6 +23,21 @@ export const routeRequest = (req, response) => {
                 }
             });
         });
+    } else if(req.method === 'POST' && req.url === '/api/register_user'){
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+
+            const auth_payload = JSON.parse(body);
+            const username = auth_payload["USERNAME"];
+            const password = auth_payload["PASSWORD"];
+
+            registerUser(username, password, (status) => {
+                response.write(status);
+                response.end();
+            });
+        });
+
     } else if(req.method === 'GET' && req.url.includes('/api/get_statistics')) {
         const params = getParams(req);
         GetStatistics(

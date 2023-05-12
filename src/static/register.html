@@ -5,6 +5,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://kit.fontawesome.com/f642795ce0.js" crossorigin="anonymous"></script>
     <script src="resources/scripts/layout_loader.js"></script>
+    <script src="resources/scripts/login.js"></script>
     <link rel="stylesheet" href="resources/css/main.css">
   </head>
   <body>
@@ -14,19 +15,19 @@
     </div>
     <div class="login_page_box">
       <h1>Inregistrare</h1>
-      <form>
+      <div>
         <label>Nume:</label> <br/>
         <input/> <br/>
         <label>Prenume:</label> <br/>
         <input/> <br/>
-        <label>Email:</label> <br/>
-        <input/> <br/>
+        <label>Username:</label> <br/>
+        <input id="authenticateEmailInputField"/> <br/>
         <label>Parola:</label>  <br/>
-        <input type="password"/>  <br/>
+        <input id="authenticatePasswordInputField" type="password"/>  <br/>
         <label>Confirma Parola:</label>  <br/>
-        <input type="password"/>  <br/>
-        <div style="padding: 5px"><button type="submit">Inregistreaza-te</button></div>  <br/>
-      </form>
+        <input id="authenticatePasswordConfirmInputField" type="password"/>  <br/>
+        <div style="padding: 5px"><button onclick="register()">Inregistreaza-te</button></div>  <br/>
+      </div>
     </div>
   </body>
 </html>
