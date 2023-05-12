@@ -11,9 +11,7 @@
     <a href="/despre.html" id="about_link">
         <p>Despre</p>
     </a>
-    <a href="/login.html" id="login_link" class="float-right">
-        <p>Autentifica</p>
-    </a>
+    <a id="login_link" class="float-right"></a>
     <!-- <div class="search-container">
         <form action="/action_page.php">
             <input type="text" placeholder="Search.." name="search">
@@ -42,4 +40,23 @@
             document.getElementById("login_link").className = "float-right active";
             break;
     }
+    $.ajax({
+        url: "/api/check_auth",
+        type: "GET",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        success: function(data) { 
+            console.log("Sunt logat");
+        },
+        error: function(e) {
+            if(e.status === 401) {
+                $('#login_link').append("<p>Autentifica</p>");
+                $('#login_link').attr("href", "/login.html");
+            } else if(e.status === 200) {
+                $('#login_link').append("<p>Contul meu</p>");
+                $('#login_link').attr("href", "/admin.html");
+            }
+        }
+    });   
 </script>

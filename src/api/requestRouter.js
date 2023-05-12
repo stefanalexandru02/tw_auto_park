@@ -58,7 +58,7 @@ export const routeRequest = (req, response) => {
             response.write(JSON.stringify(categorii));
             response.end();
         });
-    }else if(req.method === 'GET' && req.url === '/api/statistics/ani') {
+    } else if(req.method === 'GET' && req.url === '/api/statistics/ani') {
         GetAni((rows)=>{
             const ani = [];
             for( let i=0;i<rows.length;i++)
@@ -67,7 +67,20 @@ export const routeRequest = (req, response) => {
             response.write(JSON.stringify(ani));
             response.end();
         });
-    }else {
+    } else if(req.method === 'GET' && req.url === '/api/check_auth') {
+        try {
+            const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
+            console.log(decodeToken(authorizationToken));
+
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write('OK');
+            response.end();
+        } catch(ex) {
+            response.writeHead(401, { 'Content-Type': 'application/json' });
+            response.write('');
+            response.end();
+        }
+    } else {
         try {
             const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
             console.log(decodeToken(authorizationToken));
