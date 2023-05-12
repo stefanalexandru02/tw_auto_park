@@ -117,7 +117,7 @@ export const routeRequest = (req, response) => {
                           console.error(err);
                         }
                       });
-                    response.writeHead(200, { 'Content-Type': 'application/json' });
+                    response.writeHead(200, { 'Content-Type': 'application/text' });
                     response.write(`/files/${file}`);
                     response.end();
                 }

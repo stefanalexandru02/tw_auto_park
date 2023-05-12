@@ -100,29 +100,6 @@ function reloadTableData() {
                 numberOfPages = parseInt(numberOfPages) + 1;
             } else {numberOfPages = parseInt(numberOfPages); }
             $('#pageListContainer').html(buildPaginationComponent(numberOfPages, currentPage + 1));
-            // if(numberOfPages < 12) {
-            //     for(let i = 0 ; i < numberOfPages; i++) {
-            //         if(currentPage == i) {
-            //             $('#pageListContainer').append(`<a class="active" href="#">${i+1}</a>`); 
-            //         } else {
-            //             $('#pageListContainer').append(`<a onclick="selectPage(${i})" href="#">${i+1}</a>`); 
-            //         }
-            //     }
-            // } else {
-            //     if(currentPage != 0) {
-            //         $('#pageListContainer').append(`<a onclick="selectPage(0)" href="#">1</a>`); 
-            //         if(currentPage != 1) {
-            //             $('#pageListContainer').append(`<a disabled href="#">...</a>`);  
-            //         }
-            //     }
-            //     $('#pageListContainer').append(`<a onclick="selectPage(${currentPage})" class="active" href="#">${currentPage + 1}</a>`); 
-            //     if(currentPage != numberOfPages - 1) {
-            //         if(currentPage != numberOfPages - 2) {
-            //             $('#pageListContainer').append(`<a disabled href="#">...</a>`); 
-            //         }
-            //         $('#pageListContainer').append(`<a onclick="selectPage(${numberOfPages - 1})" href="#">${numberOfPages}</a>`); 
-            //     }
-            // }
 
             data['elements'].map(row => {
                 $('#statisticsDataTable').append(`
@@ -178,4 +155,31 @@ function buildPaginationComponent(totalcount, currentPage) {
 
 function addButton(number) {
     return `<a class="${number-1 === currentPage ? 'active' : ''}" onclick="selectPage(${number - 1})" href="#">${number}</a>`;
+}
+
+function downloadCSV() {
+    $('#statisticsDownloadCSVButton').prop('disabled', true);
+    let payload = {};
+    if(currentFilters['judet'] && currentFilters['judet'] != 'TOATE') {
+        payload['judet'] = currentFilters['judet'];
+    }
+    if(currentFilters['categorie'] && currentFilters['categorie'] != 'TOATE') {
+        payload['categorie'] = currentFilters['categorie'];
+    }
+    if(currentFilters['an'] && currentFilters['an'] != 'TOATE') {
+        payload['an'] = currentFilters['an'];
+    }
+    $.ajax({
+        url: "/api/statistics/generate_csv",
+        type: "POST",
+        data: JSON.stringify(payload),
+        success: function(data) { 
+            window.location.href = data;
+            $('#statisticsDownloadCSVButton').prop('disabled', false);
+        },
+        error: function(e) {
+            alert("Eroare la generarea fisierului");
+            $('#statisticsDownloadCSVButton').prop('disabled', false);
+        }
+    });   
 }
