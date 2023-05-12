@@ -101,16 +101,27 @@
           </thead>      
           <tbody id="statisticsDataTable"></tbody>
         </table>
-        <div class="pagination">
-          <a id="paginationBackButton" href="#">&laquo;</a>
-          <!-- <a href="#">1</a>
-          <a class="active" href="#">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">5</a>
-          <a href="#">6</a> -->
-          <a id="paginationForwardButton" href="#">&raquo;</a>
-        </div>        
+        <div class="table_bottom_container">
+          <div class="pagination">
+            <a id="paginationBackButton" href="#">&laquo;</a>
+            <div class="pagesList" id="pageListContainer">
+              <a href="#">1</a>
+              <a class="active" href="#">2</a>
+              <a href="#">3</a>
+              <a href="#">4</a>
+              <a href="#">5</a>
+              <a href="#">6</a>
+            </div>
+            <a id="paginationForwardButton" href="#">&raquo;</a>
+          </div>
+          <div class="selectBox">
+            <select id="elementsPerPageSelector">
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+            </select>    
+          </div>
+        </div>   
     </div>
   </body>
 </html>

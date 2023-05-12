@@ -1,7 +1,10 @@
 $(function() {
     currentFilters = {};
     currentPage = 0;
-    currentPageSize = 10;
+    currentPageSize = sessionStorage.getItem("elementsPerPage") ? sessionStorage.getItem("elementsPerPage") : 10;
+    if(sessionStorage.getItem("elementsPerPage")) {
+        $('#elementsPerPageSelector').val(currentPageSize);
+    }
 
     $.ajax({
         url: "/api/statistics/judete",
@@ -44,6 +47,13 @@ $(function() {
         reloadTableData();
     });
 
+    $('#elementsPerPageSelector').on('change', function() {
+        currentPageSize = $('#elementsPerPageSelector').val();
+        sessionStorage.setItem("elementsPerPage", currentPageSize);
+        currentPage = 0;
+        reloadTableData();
+    });
+
     $('#paginationBackButton').on('click', function() {
         if(currentPage > 0) currentPage--;
         reloadTableData();
@@ -56,12 +66,18 @@ $(function() {
     reloadTableData();
 });
 
+function selectPage(newPage) {
+    currentPage = newPage;
+    reloadTableData();
+}
+
 let currentFilters = {};
 let currentPage = 0;
 let currentPageSize = 10;
 
 function reloadTableData() {
     document.getElementById("statisticsDataTable").innerHTML = "";
+    document.getElementById("pageListContainer").innerHTML = "";
     let query = `/api/get_statistics?pageIndex=${currentPage}&pageSize=${currentPageSize}`;
     if(currentFilters['judet'] && currentFilters['judet'] != 'TOATE')
     {
@@ -79,7 +95,36 @@ function reloadTableData() {
         url: query,
         type: "GET",
         success: function(data) { 
-            data.map(row => {
+            let numberOfPages = data['totalCount'] / currentPageSize;
+            if(parseInt(numberOfPages) < numberOfPages) {
+                numberOfPages = parseInt(numberOfPages) + 1;
+            } else {numberOfPages = parseInt(numberOfPages); }
+            $('#pageListContainer').html(buildPaginationComponent(numberOfPages, currentPage + 1));
+            // if(numberOfPages < 12) {
+            //     for(let i = 0 ; i < numberOfPages; i++) {
+            //         if(currentPage == i) {
+            //             $('#pageListContainer').append(`<a class="active" href="#">${i+1}</a>`); 
+            //         } else {
+            //             $('#pageListContainer').append(`<a onclick="selectPage(${i})" href="#">${i+1}</a>`); 
+            //         }
+            //     }
+            // } else {
+            //     if(currentPage != 0) {
+            //         $('#pageListContainer').append(`<a onclick="selectPage(0)" href="#">1</a>`); 
+            //         if(currentPage != 1) {
+            //             $('#pageListContainer').append(`<a disabled href="#">...</a>`);  
+            //         }
+            //     }
+            //     $('#pageListContainer').append(`<a onclick="selectPage(${currentPage})" class="active" href="#">${currentPage + 1}</a>`); 
+            //     if(currentPage != numberOfPages - 1) {
+            //         if(currentPage != numberOfPages - 2) {
+            //             $('#pageListContainer').append(`<a disabled href="#">...</a>`); 
+            //         }
+            //         $('#pageListContainer').append(`<a onclick="selectPage(${numberOfPages - 1})" href="#">${numberOfPages}</a>`); 
+            //     }
+            // }
+
+            data['elements'].map(row => {
                 $('#statisticsDataTable').append(`
                 <tr>
                 <td>${row['judet']}</td>
@@ -95,4 +140,42 @@ function reloadTableData() {
             });
         }
     });
+}
+
+function buildPaginationComponent(totalcount, currentPage) {
+    var HTML = "";
+    if (totalcount <= 6) {
+        for (i = 1; i <= totalcount; i++) {
+            HTML += addButton(i);
+        }
+    } else {
+        HTML += addButton("1");
+        if (currentPage > 3) {
+            HTML += '<a disabled href="#">...</a>';
+        }
+        if (currentPage == totalcount) {
+            HTML += addButton(currentPage - 2);
+        }
+        if (currentPage > 2) {
+            HTML += addButton(currentPage - 1);
+        }
+        if (currentPage != 1 && currentPage != totalcount) {
+            HTML += addButton(currentPage);
+        }
+        if (currentPage < totalcount - 1) {
+            HTML += addButton(currentPage + 1);
+        }
+        if (currentPage == 1) {
+            HTML += addButton(currentPage + 2);
+        }
+        if (currentPage < totalcount - 2) {
+            HTML += '<a disabled href="#">...</a>';
+        }
+        HTML += addButton(totalcount);
+    }
+    return HTML;
+}
+
+function addButton(number) {
+    return `<a class="${number-1 === currentPage ? 'active' : ''}" onclick="selectPage(${number - 1})" href="#">${number}</a>`;
 }

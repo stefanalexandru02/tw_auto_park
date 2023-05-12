@@ -3,6 +3,7 @@ const dbFilePath = "../database.db";
 
 export const GetStatistics = (an, judet, categorie, categorie_com, marca, combustibil, pageIndex = undefined, pageSize = undefined, callback) => {
     const querry = GetStatisticsQuery(an, judet, categorie, categorie_com, marca, combustibil, pageIndex, pageSize);
+    const querryCount = GetStatisticsQuery(an, judet, categorie, categorie_com, marca, combustibil, undefined, undefined, true);
     const db = new sqlite3.Database(dbFilePath);
     console.log(`Executing '${querry}'`);
     db.all(
@@ -21,17 +22,37 @@ export const GetStatistics = (an, judet, categorie, categorie_com, marca, combus
                 console.log(err);
                 callback(err);
             }
-            db.close();
-            callback(rows);
+
+            db.get(
+                querryCount,
+                {
+                    $an: an,
+                    $judet: judet,
+                    $categorie: categorie, 
+                    $categorie_com: categorie_com,
+                    $marca: marca,
+                    $combustibil: combustibil
+                },
+                (errCount, rowsCount) => {
+                    if(errCount)
+                    {
+                        console.log(errCount);
+                        callback(errCount);
+                    }
+                    
+                    db.close();
+                    callback(rows, rowsCount['total']);
+                }
+            );
         }
     );
     return querry;
 }
 
 const GetStatisticsQuery = (an, judet, categorie, categorie_com, marca, combustibil, 
-    pageIndex = undefined, pageSize = undefined
+    pageIndex = undefined, pageSize = undefined, countOnly = false
 ) => {
-    let querry = "select * from masini";
+    let querry = countOnly ? "select count(*) as total from masini" : "select * from masini";
     let hasFilters = an || judet || categorie || categorie_com || marca || combustibil;
     let filters = {
         an: an, 

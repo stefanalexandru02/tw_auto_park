@@ -49,9 +49,14 @@ export const routeRequest = (req, response) => {
             params['combustibil'],
             params['pageIndex'],
             params['pageSize'],
-            (rows) => {
+            (rows, rowsCount) => {
                 response.writeHead(200, { 'Content-Type': 'application/json' });
-                response.write(JSON.stringify(rows));
+                response.write(
+                    JSON.stringify({
+                        'elements': rows,
+                        'totalCount': rowsCount
+                    })
+                );
                 response.end();
             }
         );

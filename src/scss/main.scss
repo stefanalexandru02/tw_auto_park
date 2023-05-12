@@ -392,19 +392,31 @@ tr:nth-child(even) {
   top: 100px;
 }
 
+.table_bottom_container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .selectBox{
+    padding: 10px;
+    padding-top: 30px;
+  }
+}
+
 .pagination {
   margin-top: 20px;
+  width: 60%;
   display: inline-block;
 }
 
-.pagination a {
+.pagination a, .pagination .pagesList a {
   color: white;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
 }
 
-.pagination a.active {
+.pagination a.active, .pagination .pagesList a.active {
   background-color: rgb(68, 59, 59);
   color: white;
 }
