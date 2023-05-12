@@ -13,12 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aos": "^2.3.4",
-    "csv-parser": "^3.0.0",
     "jsonwebtoken": "^9.0.0",
     "node": "^19.8.1",
-    "sqlite3": "^5.1.6",
-    "xlsx": "^0.18.5"
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "node-sass": "^8.0.0",
