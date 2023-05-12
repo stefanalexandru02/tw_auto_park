@@ -11,8 +11,16 @@ $(function() {
         type: "GET",
         success: function(data) { 
             data.map(element => {
-                $('#judetFilterPicker').append(`<option value=${element}>${element}</option>`)
+                $('#judetFilterPicker').append(`<option value=${element.replace(" ", "_")}>${element}</option>`)
             });
+
+            if(window.sessionStorage.getItem('judet') && window.sessionStorage.getItem('judet') !== 'undefined')
+            {
+                $('#judetFilterPicker').val(window.sessionStorage.getItem('judet'));
+                currentFilters['judet'] = window.sessionStorage.getItem('judet');
+                reloadTableData();
+                window.sessionStorage.setItem('judet', undefined);
+            }
         }
     });
     $.ajax({
@@ -20,7 +28,7 @@ $(function() {
         type: "GET",
         success: function(data) { 
             data.map(element => {
-                $('#categorieFilterPicker').append(`<option value=${element}>${element}</option>`)
+                $('#categorieFilterPicker').append(`<option value=${element.replace(" ", "_")}>${element}</option>`)
             });
         }
     });
@@ -81,11 +89,11 @@ function reloadTableData() {
     let query = `/api/get_statistics?pageIndex=${currentPage}&pageSize=${currentPageSize}`;
     if(currentFilters['judet'] && currentFilters['judet'] != 'TOATE')
     {
-        query = `${query}&judet=${currentFilters['judet']}`;
+        query = `${query}&judet=${currentFilters['judet'].replace(" ", "_")}`;
     }
     if(currentFilters['categorie'] && currentFilters['categorie'] != 'TOATE')
     {
-        query = `${query}&categorie=${currentFilters['categorie']}`;
+        query = `${query}&categorie=${currentFilters['categorie'].replace(" ", "_")}`;
     }
     if(currentFilters['an'] && currentFilters['an'] != 'TOATE')
     {
@@ -161,10 +169,10 @@ function downloadCSV() {
     $('#statisticsDownloadCSVButton').prop('disabled', true);
     let payload = {};
     if(currentFilters['judet'] && currentFilters['judet'] != 'TOATE') {
-        payload['judet'] = currentFilters['judet'];
+        payload['judet'] = currentFilters['judet'].replace("_", " ");
     }
     if(currentFilters['categorie'] && currentFilters['categorie'] != 'TOATE') {
-        payload['categorie'] = currentFilters['categorie'];
+        payload['categorie'] = currentFilters['categorie'].replace("_", " ");
     }
     if(currentFilters['an'] && currentFilters['an'] != 'TOATE') {
         payload['an'] = currentFilters['an'];

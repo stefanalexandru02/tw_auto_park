@@ -3,7 +3,7 @@ export const getParams = (req) => {
     if(q.length>=2){
         q[1].split('&').forEach((item)=>{
              try {
-               result[item.split('=')[0]]=item.split('=')[1];
+               result[item.split('=')[0]]=item.split('=')[1].replace("_", " ");
              } catch (e) {
                result[item.split('=')[0]]='';
              }
