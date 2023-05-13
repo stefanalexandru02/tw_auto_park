@@ -34,7 +34,51 @@
           </div>
         </div>
         <br/>
-        <!-- <div class="justify_between">
+        <div class="justify_between">
+          <h2>Detalii</h2>
+          <div>
+            <button id="statisticsDownloadCSVButton" onclick="downloadCSV()">Descarca CSV</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Judet</th>
+              <th>An</th>
+              <th>Marca</th>
+              <th>Categorie</th>
+              <th>Categorie Comunitara</th>
+              <th>Combustibil</th>
+              <th>Descriere</th>
+              <th>Total</th>
+            </tr>
+          </thead>      
+          <tbody id="statisticsDataTable"></tbody>
+        </table>
+        <div class="table_bottom_container">
+          <div class="pagination">
+            <a id="paginationBackButton" href="#">&laquo;</a>
+            <div class="pagesList" id="pageListContainer">
+              <a href="#">1</a>
+              <a class="active" href="#">2</a>
+              <a href="#">3</a>
+              <a href="#">4</a>
+              <a href="#">5</a>
+              <a href="#">6</a>
+            </div>
+            <a id="paginationForwardButton" href="#">&raquo;</a>
+          </div>
+          <div class="selectBox">
+            <select id="elementsPerPageSelector">
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+            </select>    
+          </div>
+        </div>   
+        <hr/>
+
+        <div class="justify_between">
           <div>
             <h2>Distributie</h2>
             <div class="wrapper">
@@ -79,49 +123,8 @@
             <button>Descarca SVG</button>
           </div>
         </div>
-        <br/> -->
-        <div class="justify_between">
-          <h2>Detalii</h2>
-          <div>
-            <button id="statisticsDownloadCSVButton" onclick="downloadCSV()">Descarca CSV</button>
-          </div>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Judet</th>
-              <th>An</th>
-              <th>Marca</th>
-              <th>Categorie</th>
-              <th>Categorie Comunitara</th>
-              <th>Combustibil</th>
-              <th>Descriere</th>
-              <th>Total</th>
-            </tr>
-          </thead>      
-          <tbody id="statisticsDataTable"></tbody>
-        </table>
-        <div class="table_bottom_container">
-          <div class="pagination">
-            <a id="paginationBackButton" href="#">&laquo;</a>
-            <div class="pagesList" id="pageListContainer">
-              <a href="#">1</a>
-              <a class="active" href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-              <a href="#">6</a>
-            </div>
-            <a id="paginationForwardButton" href="#">&raquo;</a>
-          </div>
-          <div class="selectBox">
-            <select id="elementsPerPageSelector">
-              <option>10</option>
-              <option>20</option>
-              <option>50</option>
-            </select>    
-          </div>
-        </div>   
+        <br/>
+        
     </div>
   </body>
 </html>
