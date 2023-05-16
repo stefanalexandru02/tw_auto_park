@@ -168,3 +168,19 @@ export const GetAni = (callback) => {
         }
     );
 }
+export const GetGraphicsTotalJudete = (callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+    db.all(
+        'select judet, count(*) as total from masini group by judet;',
+        { },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    )
+} 
