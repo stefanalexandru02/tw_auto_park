@@ -135,7 +135,6 @@ export const GetJudete = (callback) => {
         }
     );
 }
-
 export const GetCategorii = (callback) => {
     const db = new sqlite3.Database(dbFilePath);
     db.all(
@@ -168,11 +167,20 @@ export const GetAni = (callback) => {
         }
     );
 }
-export const GetGraphicsTotalJudete = (callback) => {
+export const GetGraphicsTotalJudete = (an, categorie, callback) => {
     const db = new sqlite3.Database(dbFilePath);
+
+    let query = GetStatisticsQuery(an, undefined, categorie, undefined, undefined, undefined, undefined, undefined, true);
+    query = query.replace("select count(*) as total", "select judet, count(*) as total");
+    query = query.replace("and judet = $judet", "");
+    query = `${query} group by judet;`
+
     db.all(
-        'select judet, count(*) as total from masini group by judet;',
-        { },
+        query,
+        { 
+            $an: an,
+            $categorie: categorie, 
+        },
         (err, rows) => {
             if(err)
             {

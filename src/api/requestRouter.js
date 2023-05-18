@@ -136,14 +136,23 @@ export const routeRequest = (req, response) => {
             response.write('');
             response.end();
         }
-    } else if(req.method === 'GET' && req.url === '/api/get_distribution_chart_data/judete_total'){
-        GetGraphicsTotalJudete((rows)=>{
-            const ani = [];
-            for( let i=0;i<rows.length;i++)
-                ani.push(rows[i]);
-            response.writeHead(200, { 'Content-Type': 'application/json' });
-            response.write(JSON.stringify(ani));
-            response.end();
+    } else if(req.method === 'POST' && req.url === '/api/get_distribution_chart_data/judete_total'){
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+            const params = JSON.parse(body);
+
+            GetGraphicsTotalJudete(
+                params['an'],
+                params['categorie'],
+            (rows)=>{
+                const ani = [];
+                for( let i=0;i<rows.length;i++)
+                    ani.push(rows[i]);
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.write(JSON.stringify(ani));
+                response.end();
+            });
         });
     } 
     else{

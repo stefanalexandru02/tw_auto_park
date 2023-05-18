@@ -125,6 +125,44 @@ function reloadTableData() {
             });
         }
     });
+
+    let payload = {};
+    if(currentFilters['categorie'] && currentFilters['categorie'] != 'TOATE') {
+        payload['categorie'] = currentFilters['categorie'].replace("_", " ");
+    }
+    if(currentFilters['an'] && currentFilters['an'] != 'TOATE') {
+        payload['an'] = currentFilters['an'];
+    }
+    $.ajax({
+        url: "/api/get_distribution_chart_data/judete_total",
+        type: "POST",
+        data: JSON.stringify(payload), 
+        success: function(data) {
+           var myCanvas = document.getElementById("myCanvas");
+            myCanvas.width = 500;
+            myCanvas.height = 340;
+
+            var myPiechart = new PieChart({
+                hide_labels: true,
+            canvas: myCanvas,
+            seriesName: "Distributie masini",
+            padding: 40,
+            data: compressArrayWithOther(data,5,"judet", "total"),
+            colors: ["#80DEEA", "#FFE082", "#FFAB91", "#CE93D8"],
+            titleOptions: {
+                align: "center",
+                fill: "white",
+                font: {
+                weight: "bold",
+                size: "18px",
+                family: "Lato"
+                }
+            }
+            });
+
+            myPiechart.draw();
+        }
+    }); 
 }
 
 function buildPaginationComponent(totalcount, currentPage) {
@@ -191,35 +229,3 @@ function downloadCSV() {
         }
     });   
 }
-
-
-setTimeout(()=>{
-
-var myCanvas = document.getElementById("myCanvas");
-myCanvas.width = 500;
-myCanvas.height = 340;
-
-var myPiechart = new PieChart({
-  canvas: myCanvas,
-  seriesName: "Distributie masini",
-  padding: 40,
-  data: {
-    "Classical Music": 16,
-    "Alternative Rock": 12,
-    "Pop": 18,
-    "Jazz": 32
-  },
-  colors: ["#80DEEA", "#FFE082", "#FFAB91", "#CE93D8"],
-  titleOptions: {
-    align: "center",
-    fill: "white",
-    font: {
-      weight: "bold",
-      size: "18px",
-      family: "Lato"
-    }
-  }
-});
-
-myPiechart.draw();
-}, 1000);

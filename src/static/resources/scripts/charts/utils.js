@@ -38,3 +38,22 @@ function drawPieSlice(
     ctx.stroke();
     ctx.restore();
 }
+
+function compressArrayWithOther(
+  array, 
+  keepCount,
+  labelName,
+  countName
+) {
+  array.sort((a,b)=>{return b[countName] - a[countName]});
+  let result = {};
+  for(let i=0;i<keepCount;++i) {
+    result[array[i][labelName]] = array[i][countName];
+  }
+  let otherCount = 0;
+  for(let i = keepCount; i < array.length; ++i) {
+    otherCount += array[i][countName];
+  }
+  result['Altele'] = otherCount;
+  return result;
+}

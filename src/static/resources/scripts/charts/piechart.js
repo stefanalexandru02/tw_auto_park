@@ -7,6 +7,8 @@ class PieChart {
       this.titleOptions = options.titleOptions;
       this.totalValue = [...Object.values(this.options.data)].reduce((a, b) => a + b, 0);
       this.radius = Math.min(this.canvas.width / 2, this.canvas.height / 2) - options.padding;
+
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
   
     drawSlices() {
@@ -79,8 +81,8 @@ class PieChart {
         }
   
         var labelText = Math.round((100 * val) / this.totalValue);
-        this.ctx.fillStyle = "white";
-        this.ctx.font = "16px Serif";
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "12px Serif";
         this.ctx.fillText(labelText + "%", labelX, labelY);
         startAngle += sliceAngle;
       }
@@ -111,8 +113,14 @@ class PieChart {
     drawLegend() {
       let pIndex = 0;
       let legend = document.querySelector("div[for='myCanvas']");
+      legend.innerHTML = "";
       let ul = document.createElement("ul");
       legend.append(ul);
+
+      let total = 0;
+      for(let ctg of Object.keys(this.options.data)){
+        total += this.options.data[ctg];
+      }
   
       for (let ctg of Object.keys(this.options.data)) {
         let li = document.createElement("li");
@@ -120,7 +128,8 @@ class PieChart {
         li.style.borderLeft =
           "20px solid " + this.colors[pIndex % this.colors.length];
         li.style.padding = "5px";
-        li.textContent = ctg;
+        let perc = Math.round(this.options.data[ctg] / total * 100);
+        li.textContent = `${ctg} ${perc}%`;
         ul.append(li);
         pIndex++;
       }
