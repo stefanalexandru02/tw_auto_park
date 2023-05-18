@@ -127,8 +127,12 @@ function reloadTableData() {
     });
 
     let payload = {};
+    if(currentFilters['judet'] && currentFilters['judet'] != 'TOATE')
+    {
+        payload['judet'] = currentFilters['judet'];
+    }
     if(currentFilters['categorie'] && currentFilters['categorie'] != 'TOATE') {
-        payload['categorie'] = currentFilters['categorie'].replace("_", " ");
+        payload['categorie'] = currentFilters['categorie'];
     }
     if(currentFilters['an'] && currentFilters['an'] != 'TOATE') {
         payload['an'] = currentFilters['an'];
@@ -138,7 +142,7 @@ function reloadTableData() {
         type: "POST",
         data: JSON.stringify(payload), 
         success: function(data) {
-           var myCanvas = document.getElementById("myCanvas");
+            var myCanvas = document.getElementById("myCanvas");
             myCanvas.width = 500;
             myCanvas.height = 340;
 
@@ -159,8 +163,23 @@ function reloadTableData() {
                 }
             }
             });
-
             myPiechart.draw();
+
+            new BarChart({
+                data: compressArrayWithOther(data,5,"judet", "total"),
+                canvas: document.getElementById("barChart")
+            }).draw();
+        }
+    }); 
+    $.ajax({
+        url: "/api/get_distribution_chart_data/categorii_total",
+        type: "POST",
+        data: JSON.stringify(payload), 
+        success: function(data) {
+            new BarChart({
+                data: compressArrayWithOther(data,5,"categorie", "total"),
+                canvas: document.getElementById("barChart")
+            }).draw();
         }
     }); 
 }

@@ -1,6 +1,6 @@
 import { decodeToken, loginUser, registerUser } from "./login.js";
 import {getParams} from '../utilities.js';
-import { GetJudete, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete } from "./statistics.js";
+import { GetJudete, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete, GetGraphicsTotalCategorii } from "./statistics.js";
 import fs from 'fs';
 import crypto from 'crypto';
 
@@ -154,8 +154,25 @@ export const routeRequest = (req, response) => {
                 response.end();
             });
         });
-    } 
-    else{
+    } else if(req.method === 'POST' && req.url === '/api/get_distribution_chart_data/categorii_total'){
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+            const params = JSON.parse(body);
+
+            GetGraphicsTotalCategorii(
+                params['an'],
+                params['judet'],
+            (rows)=>{
+                const ani = [];
+                for( let i=0;i<rows.length;i++)
+                    ani.push(rows[i]);
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.write(JSON.stringify(ani));
+                response.end();
+            });
+        });
+    } else{
         try {
             const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
             console.log(decodeToken(authorizationToken));

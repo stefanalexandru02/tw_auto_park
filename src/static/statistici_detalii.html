@@ -7,6 +7,7 @@
     <script src="resources/scripts/layout_loader.js"></script>
     <script src="resources/scripts/charts/utils.js"></script>
     <script src="resources/scripts/charts/piechart.js"></script>
+    <script src="resources/scripts/charts/barchart.js"></script>
     <script src="resources/scripts/statistics.js"></script>
     <link rel="stylesheet" href="resources/css/main.css">
   </head>
@@ -79,10 +80,15 @@
           </div>
         </div>   
         <hr/>
-        
-        <canvas id="myCanvas"></canvas>
-        <div for="myCanvas"></div>
-
+        <div class="wrapper">
+          <div style="grid-column: 1;">
+            <canvas id="barChart" width="700" height="340"></canvas>
+          </div>
+          <div style="grid-column: 2;">
+            <canvas id="myCanvas" width="500" height="340"></canvas>
+            <div for="myCanvas"></div>
+          </div>
+        </div>
     </div>
   </body>
 </html>
