@@ -217,3 +217,28 @@ export const GetGraphicsTotalCategorii = (an, judet, callback) => {
         }
     );
 }
+export const GetGraphicsTotalAn = (judet, categorie, callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+
+    let query = GetStatisticsQuery(undefined, judet, categorie, undefined, undefined, undefined, undefined, undefined, true);
+    query = query.replace("select count(*) as total", "select an, count(*) as total");
+    query = query.replace("and an = $an", "");
+    query = `${query} group by an;`
+
+    db.all(
+        query,
+        { 
+            $judet: judet,
+            $categorie: categorie, 
+        },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+} 

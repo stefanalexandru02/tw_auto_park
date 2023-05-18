@@ -182,6 +182,17 @@ function reloadTableData() {
             }).draw();
         }
     }); 
+    $.ajax({
+        url: "/api/get_distribution_chart_data/an_total",
+        type: "POST",
+        data: JSON.stringify(payload), 
+        success: function(data) {
+            new LineChart({
+                data: compressArrayWithOther(data,5,"an", "total"),
+                canvas: document.getElementById("chartCanvas")
+            }).draw();
+        }
+    });       
 }
 
 function buildPaginationComponent(totalcount, currentPage) {
