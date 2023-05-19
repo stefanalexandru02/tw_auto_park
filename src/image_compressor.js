@@ -22,7 +22,7 @@ fs.readdir("images", (err, files) => {
   files.map(file => {
     if(file.includes(".webp")) {
       console.log(`Already compressed ${file}`);
-      fs.copyFileSync(`images/${file}`, `static/resources/images/${file}`);
+      fs.copyFileSync(`/images/${file}`, `/static/resources/images/${file}`);
     }
   });
 });
