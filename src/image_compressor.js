@@ -1,6 +1,10 @@
 import compress_images from "compress-images";
 import fs from 'fs';
 
+if (!fs.existsSync("static/resources/images/")){
+  fs.mkdirSync("static/resources/images/");
+}
+
 const INPUT_path_to_your_images = "images/**/*";
 const OUTPUT_path = "static/resources/images/";
 
@@ -17,11 +21,6 @@ compress_images(INPUT_path_to_your_images, OUTPUT_path, { compress_force: false,
     console.log("-------------");
   }
 );
-
-
-if (!fs.existsSync("static/resources/images/")){
-  fs.mkdirSync("static/resources/images/");
-}
 
 fs.readdir("images", (err, files) => {
   files.map(file => {
