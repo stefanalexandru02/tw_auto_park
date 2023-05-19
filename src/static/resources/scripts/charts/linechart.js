@@ -19,6 +19,20 @@ class LineChart {
       
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       
+        var bw = this.canvas.width - 50;
+        var bh = this.canvas.height - 40;
+        var p = 10;
+        for (var x = 10; x <= bw; x += 50) {
+          ctx.moveTo(0.5 + x + p, p);
+          ctx.lineTo(0.5 + x + p, bh + p);
+        }
+        for (var x = 10; x <= bh; x += 50) {
+            ctx.moveTo(p, 0.5 + x + p);
+            ctx.lineTo(bw + p, 0.5 + x + p);
+        }
+        ctx.strokeStyle = "#353b48";
+        ctx.stroke();
+
         ctx.beginPath();
         ctx.strokeStyle = "#64302e";
         ctx.lineWidth = 2;

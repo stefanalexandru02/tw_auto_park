@@ -122,8 +122,11 @@ class PieChart {
         total += this.options.data[ctg];
       }
   
+      let item = 2;
       for (let ctg of Object.keys(this.options.data)) {
         let li = document.createElement("li");
+        li.setAttribute("data-aos", "fade-up");
+        li.setAttribute("data-aos-delay", 100 * item++);
         li.style.listStyle = "none";
         li.style.borderLeft =
           "20px solid " + this.colors[pIndex % this.colors.length];

@@ -125,7 +125,7 @@ function reloadTableData() {
 
             data['elements'].map(row => {
                 $('#statisticsDataTable').append(`
-                <tr>
+                <tr data-aos="fade-up">
                 <td>${row['judet']}</td>
                 <td>${row['an']}</td>
                 <td>${row['marca']}</td>
