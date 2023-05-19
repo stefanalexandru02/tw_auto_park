@@ -36,6 +36,7 @@ jobs:
 
       - name: compress images
         run: |
+          cd src
           node image_compressor.js
 
       - name: 'Deploy to Azure Web App'
