@@ -3,7 +3,7 @@ import * as http from 'node:http';
 import * as path from 'node:path';
 import { routeRequest } from './api/requestRouter.js';
 
-const PORT = process.env.port || 8000;
+const PORT = process.env.port || 8080;
 
 const MIME_TYPES = {
   default: 'application/octet-stream',
