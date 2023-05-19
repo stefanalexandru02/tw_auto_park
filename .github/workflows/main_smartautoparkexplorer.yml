@@ -34,11 +34,6 @@ jobs:
           npm install
           npm run build-css
 
-      - name: compress images
-        run: |
-          cd src
-          node image_compressor.js
-
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2

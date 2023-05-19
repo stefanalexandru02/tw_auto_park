@@ -1,7 +1,6 @@
 /src/node_modules
 /src/static/files
 /src/static/resources/css
-/src/static/resources/images
 /src/package-lock.json
 
 /data/node_modules
