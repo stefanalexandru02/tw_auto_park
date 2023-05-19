@@ -26,7 +26,6 @@ jobs:
           cd src
           npm install
           npm run build-css
-          npm run build 
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
