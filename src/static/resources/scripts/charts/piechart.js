@@ -41,8 +41,8 @@ class PieChart {
           this.options.doughnutHoleSize * this.radius,
           0,
           2 * Math.PI,
-          "#FFF",
-          "#FFF"
+          "#212121",
+          "#212121"
         );
   
         drawArc(

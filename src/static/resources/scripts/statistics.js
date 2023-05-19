@@ -151,6 +151,7 @@ function reloadTableData() {
             canvas: myPieChartCanvas,
             seriesName: "Distributie masini",
             padding: 40,
+            doughnutHoleSize: 0.4,
             data: compressArrayWithOther(data,5,"judet", "total"),
             colors: ["#80DEEA", "#FFE082", "#FFAB91", "#CE93D8"],
             titleOptions: {
