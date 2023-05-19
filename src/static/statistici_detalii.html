@@ -19,23 +19,36 @@
       <div id="nav-placeholder"></div>
     </div>
     <div class="login_page_box" style="width: 80%; margin-bottom: 80px;">
-        <div style="display: flex;
-        flex-direction: row; justify-content: space-between;">
+        <div class="justify_between" id="simpleFilterNavbar">
           <div>
             <label>Judet</label>
             <select id="judetFilterPicker" style="margin-left: 5px; width: 150px">
               <option>TOATE</option>
             </select>
-
             <label style="margin-left: 10px">Categorie</label>
-            <select id="categorieFilterPicker" style="margin-left: 5px; width: 250px">
-              <option>TOATE</option>
-            </select>
-
-            <label style="margin-left: 10px">An</label>
-            <select id="anFilterPicker" style="margin-left: 5px">
-              <option>TOATE</option>
-            </select>
+              <select id="categorieFilterPicker" style="margin-left: 5px; width: 250px">
+                <option>TOATE</option>
+              </select>
+              <label style="margin-left: 10px">An</label>
+              <select id="anFilterPicker" style="margin-left: 5px">
+                <option>TOATE</option>
+              </select>
+          </div>
+          <div>
+            <button id="enableAdvancedSearchButton" onclick="enableAdvancedSearch()">Avansat</button>
+          </div>
+        </div>
+        <div class="justify_between" id="advancedFilterNavbar" style="display: none">
+          <textarea
+              placeholder="Introduceti interogarea"
+              style="resize: none; width: 100%; background-color: gray; color: white; border-radius: 5px; border: none; outline: none; padding: 5px; margin-right: 20px;" 
+              rows="3"
+            ></textarea>
+          <div style="margin-right: 20px;">
+            <button>Executa</button>
+          </div>
+          <div >
+            <button onclick="disableAdvancedSearch()" style="padding-left: 20px; padding-right: 18px;">Inapoi</button>
           </div>
         </div>
         <br/>

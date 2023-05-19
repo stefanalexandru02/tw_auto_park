@@ -92,6 +92,7 @@ body {
     border: 1px solid white;
     border-radius: 10px;
     outline: none;
+    cursor: pointer;
   }
 
   button:hover{
@@ -314,6 +315,16 @@ tr:nth-child(even) {
   }
 }
 
+@media only screen and (max-width: 1000px) {
+  .col_2_row_container {
+    display: block;
+
+    .row {
+      display: block;      
+    }
+  }
+}
+
 .vertical_center {
   height: 100%;
   align-items: center;
@@ -334,11 +345,3 @@ tr:nth-child(even) {
 
 
 
-
-
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
-}
