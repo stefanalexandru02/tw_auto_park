@@ -159,7 +159,7 @@ function reloadTableData() {
                 font: {
                 weight: "bold",
                 size: "18px",
-                family: "Lato"
+                family: "Serif"
                 }
             }
             });
@@ -191,7 +191,7 @@ function reloadTableData() {
             canvas.width = $("#myLineChartContainer").width();
             canvas.height = $("#myLineChartContainer").height();
             new LineChart({
-                data: compressArrayWithOther(data,5,"an", "total"),
+                data: compressArrayWithoutOther(data,"an", "total"),
                 canvas: canvas
             }).draw();
         }

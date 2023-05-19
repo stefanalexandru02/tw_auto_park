@@ -14,7 +14,7 @@ class LineChart {
         const chartWidth = this.canvas.width - 20; // Adjusted to fit within the this.canvas
         const chartHeight = this.canvas.height - 40; // Adjusted to fit within the this.canvas
       
-        const xStep = chartWidth / (labels.length - 1);
+        const xStep = chartWidth / (labels.length - 1) - 10;
         const yScale = chartHeight / maxCount;
       
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -37,6 +37,7 @@ class LineChart {
           }
       
           ctx.fillStyle = 'white';
+          ctx.font = "12px Serif";
           ctx.fillText(label, x - 10, this.canvas.height - 5);
         }
       

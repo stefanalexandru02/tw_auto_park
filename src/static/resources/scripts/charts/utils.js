@@ -57,3 +57,16 @@ function compressArrayWithOther(
   result['Altele'] = otherCount;
   return result;
 }
+
+function compressArrayWithoutOther(
+  array, 
+  labelName,
+  countName
+) {
+  array.sort((a,b)=>{return b[countName] - a[countName]});
+  let result = {};
+  for(let i=0;i<array.length;++i) {
+    result[array[i][labelName]] = array[i][countName];
+  }
+  return result;
+}
