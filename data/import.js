@@ -29,11 +29,12 @@ db.exec(`
         files.forEach(file => {
             if(file.includes(".csv"))
             {
+                let elements = [];
                 const year = file.replace("parcauto", "").replace("combustibil", "").replace(".csv", "");
                 console.log(year);
                 let fLine = true;
                 const allFileContents = fs.readFileSync(file, 'utf-8');
-                    allFileContents.split(/\r?\n/).forEach(async line =>  {
+                    allFileContents.split(/\r?\n/).forEach(line =>  {
                         if(fLine) {
                             fLine = false;
                         } else {  
@@ -47,25 +48,54 @@ db.exec(`
                                 const combustibil = parts[5].replace('"', '').replace('"', '');
                                 const total = parts[6].replace('"', '').replace('"', '');
     
-                                try {
-                                    const querry =  `insert into masini (an, judet, categorie, categorie_com, marca, desc, combustibil, total) VALUES ($year, $judet, $categorie, $categorie_com, $marca, $desc, $combustibil, $total);`;
-                                    await db.run(querry, {
-                                        $year: year, 
-                                        $judet: judet, 
-                                        $categorie: categorie, 
-                                        $categorie_com: categorie_com, 
-                                        $marca: marca, 
-                                        $desc: desc, 
-                                        $combustibil: combustibil, 
-                                        $total: total
-                                    });
-                                } catch (e) {
-                                    console.log('ERROR EXECUTING INSERT');
-                                    console.log(e);
-                                }  
+                                elements.push([
+                                    year, 
+                                    judet, 
+                                    categorie, 
+                                    categorie_com, 
+                                    marca, 
+                                    desc, 
+                                    combustibil, 
+                                    total
+                                ]);
+
+                                if(elements.length === 100) {
+                                    let placeHolders = elements.map(() => "(?, ?, ?, ?, ?, ?, ?, ?)").join(', ');
+                                    const querry =  `insert into masini (an, judet, categorie, categorie_com, marca, desc, combustibil, total) 
+                                        VALUES ${placeHolders}`;
+                                    let flatArtist = [];
+                                    elements.forEach((arr) => { arr.forEach((item) => { flatArtist.push(item) }) });
+                                        
+                                    try {
+                                        db.serialize(function(){
+                                            db.run(querry, flatArtist);
+                                        });
+                                    } catch (e) {
+                                        console.log('ERROR EXECUTING INSERT');
+                                        console.log(e);
+                                    }  
+
+                                    elements = [];
+                                }
                             }
                         }
                 });
+
+                let placeHolders = elements.map(() => "(?, ?, ?, ?, ?, ?, ?, ?)").join(', ');
+                const querry =  `insert into masini (an, judet, categorie, categorie_com, marca, desc, combustibil, total) 
+                    VALUES ${placeHolders}`;
+                let flatArtist = [];
+                elements.forEach((arr) => { arr.forEach((item) => { flatArtist.push(item) }) });
+                    
+                try {
+                    db.serialize(function(){
+                        db.run(querry, flatArtist);
+                    });
+                } catch (e) {
+                    console.log('ERROR EXECUTING INSERT');
+                    console.log(e);
+                }  
+
                 console.log("------------------------------------------");
             }
         });
