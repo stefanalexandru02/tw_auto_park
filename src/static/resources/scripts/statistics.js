@@ -193,6 +193,7 @@ function reloadTableData() {
         success: function(data) {
             new BarChart({
                 data: compressArrayWithOther(data,5,"categorie", "total"),
+                colors: ["#74413e","#975451","#a05651","#de827a","#bf8784","#64302e",],
                 canvas: document.getElementById("barChart")
             }).draw();
         }

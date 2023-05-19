@@ -2,6 +2,7 @@ class BarChart {
     constructor(options) {
         this.data = options.data;
         this.canvas = options.canvas;
+        this.colors = options.colors;
     }
 
     // Function to create a bar chart
@@ -23,20 +24,20 @@ class BarChart {
     // Set the initial x-coordinate for the first bar
     let x = 0;
   
+    let index = 0;
     // Loop through the this.data and draw the bars
     for (const [label, count] of Object.entries(this.data)) {
       // Calculate the height of the bar based on the this.data value
       const barHeight = (count / maxCount) * chartHeight;
   
       // Set the color of the bar
-      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-      context.fillStyle = "#" + randomColor;
+      context.fillStyle = this.colors[index++ % this.colors.length];
   
       // Draw the bar
       context.fillRect(x, chartHeight - barHeight, barWidth, barHeight);
   
       // Draw the label below the bar
-      context.fillStyle = "#000";
+      context.fillStyle = "white";
       context.textAlign = "center";
       context.fillText(label, x + barWidth / 2, chartHeight - 5);
   
