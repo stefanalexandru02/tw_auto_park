@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,17 +28,17 @@ jobs:
           node import.js
           cd ..
 
-      - name: npm install, build, and test
+      - name: build css
         run: |
           cd src
           npm install
           npm run build-css
 
-      # - name: Upload artifact for deployment job
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: node-app
-      #     path: .
+      - name: compress images
+        run: |
+          cd src
+          npm install
+          npm run build-css
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
