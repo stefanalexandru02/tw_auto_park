@@ -20,7 +20,7 @@ class LineChart {
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       
         ctx.beginPath();
-        ctx.strokeStyle = 'steelblue';
+        ctx.strokeStyle = "#64302e";
         ctx.lineWidth = 2;
       
         for (let i = 0; i < labels.length; i++) {
