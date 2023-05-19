@@ -18,6 +18,11 @@ compress_images(INPUT_path_to_your_images, OUTPUT_path, { compress_force: false,
   }
 );
 
+
+if (!fs.existsSync("static/resources/images/")){
+  fs.mkdirSync("static/resources/images/");
+}
+
 fs.readdir("images", (err, files) => {
   files.map(file => {
     if(file.includes(".webp")) {
