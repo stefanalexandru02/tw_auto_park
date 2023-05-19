@@ -10,6 +10,8 @@
     <script src="resources/scripts/charts/barchart.js"></script>
     <script src="resources/scripts/charts/linechart.js"></script>
     <script src="resources/scripts/statistics.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/main.css">
   </head>
   <body style="background-image: url('/resources/images/car.webp'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
@@ -43,7 +45,7 @@
             <button id="statisticsDownloadCSVButton" onclick="downloadCSV()">Descarca CSV</button>
           </div>
         </div>
-        <table>
+        <table data-aos="fade-up">
           <thead>
             <tr>
               <th>Judet</th>
@@ -114,4 +116,7 @@
 
     </div>
   </body>
+  <script>
+    AOS.init();
+  </script>
 </html>
