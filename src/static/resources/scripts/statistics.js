@@ -167,7 +167,7 @@ function reloadTableData() {
             padding: 40,
             doughnutHoleSize: 0.4,
             data: compressArrayWithOther(data,5,"judet", "total"),
-            colors: ["#80DEEA", "#FFE082", "#FFAB91", "#CE93D8"],
+            colors: ["#74413e","#975451","#a05651","#de827a","#bf8784","#64302e",],
             titleOptions: {
                 align: "center",
                 fill: "white",
