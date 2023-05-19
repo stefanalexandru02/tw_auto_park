@@ -179,11 +179,6 @@ function reloadTableData() {
             }
             });
             myPiechart.draw();
-
-            new BarChart({
-                data: compressArrayWithOther(data,5,"judet", "total"),
-                canvas: document.getElementById("barChart")
-            }).draw();
         }
     }); 
     $.ajax({
@@ -191,10 +186,13 @@ function reloadTableData() {
         type: "POST",
         data: JSON.stringify(payload), 
         success: function(data) {
+            const canvas = document.getElementById("barChart");
+            canvas.width = $('#barChartContainer').width();
+            canvas.height = $('#barChartContainer').height();
             new BarChart({
-                data: compressArrayWithOther(data,5,"categorie", "total"),
+                data: compressArrayWithOther(data,8,"categorie", "total"),
                 colors: ["#74413e","#975451","#a05651","#de827a","#bf8784","#64302e",],
-                canvas: document.getElementById("barChart")
+                canvas: canvas
             }).draw();
         }
     }); 

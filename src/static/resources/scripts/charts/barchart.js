@@ -18,8 +18,8 @@ class BarChart {
     const maxCount = Math.max(...Object.values(this.data));
   
     // Calculate the width and spacing for each bar
-    const barWidth = chartWidth / Object.keys(this.data).length;
     const barSpacing = 10;
+    const barWidth = (chartWidth / Object.keys(this.data).length) - barSpacing;
   
     // Set the initial x-coordinate for the first bar
     let x = 0;
@@ -34,7 +34,7 @@ class BarChart {
       context.fillStyle = this.colors[index++ % this.colors.length];
   
       // Draw the bar
-      context.fillRect(x, chartHeight - barHeight, barWidth, barHeight);
+      context.fillRect(x, chartHeight - barHeight - 30, barWidth, barHeight);
   
       // Draw the label below the bar
       context.fillStyle = "white";
