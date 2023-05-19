@@ -71,6 +71,20 @@ $(function() {
         reloadTableData();
     });
 
+
+
+    $('#myPieChartCanvas').on('dblclick', function() {
+        downloadAsWebP(document.getElementById('myPieChartCanvas'));
+    });
+    $('#barChart').on('dblclick', function() {
+        downloadAsWebP(document.getElementById('barChart'));
+    });
+    $('#myLineChartCanvas').on('dblclick', function() {
+        downloadAsWebP(document.getElementById('myLineChartCanvas'));
+    });
+
+
+
     reloadTableData();
 });
 
@@ -262,4 +276,13 @@ function downloadCSV() {
             $('#statisticsDownloadCSVButton').prop('disabled', false);
         }
     });   
+}
+
+function downloadAsWebP(canvas) {
+    let canvasUrl = canvas.toDataURL('image/webp');
+    const createEl = document.createElement('a');
+    createEl.href = canvasUrl;
+    createEl.download = "chart.webp";
+    createEl.click();
+    createEl.remove();
 }
