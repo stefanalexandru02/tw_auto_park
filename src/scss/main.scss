@@ -310,6 +310,38 @@ tr:nth-child(even) {
   color: white;
 }
 
+.col_2_row_container {
+  width: 100%;
+  display: flex;
+
+  .row {
+    display: inline-block;
+    flex: 50%;
+  }
+}
+
+.vertical_center {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  .child {
+    display: flex;
+    align-items: center;
+
+    li {
+      margin: 10px 0;
+    }
+  }
+}
+
+
+
+
+
+
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

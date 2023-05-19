@@ -142,13 +142,13 @@ function reloadTableData() {
         type: "POST",
         data: JSON.stringify(payload), 
         success: function(data) {
-            var myCanvas = document.getElementById("myCanvas");
-            myCanvas.width = 500;
-            myCanvas.height = 340;
+            var myPieChartCanvas = document.getElementById("myPieChartCanvas");
+            myPieChartCanvas.width = $("#pieChartContainer").width();
+            myPieChartCanvas.height = $("#pieChartContainer").height();
 
             var myPiechart = new PieChart({
                 hide_labels: true,
-            canvas: myCanvas,
+            canvas: myPieChartCanvas,
             seriesName: "Distributie masini",
             padding: 40,
             data: compressArrayWithOther(data,5,"judet", "total"),
@@ -187,9 +187,12 @@ function reloadTableData() {
         type: "POST",
         data: JSON.stringify(payload), 
         success: function(data) {
+            const canvas = document.getElementById("myLineChartCanvas");
+            canvas.width = $("#myLineChartContainer").width();
+            canvas.height = $("#myLineChartContainer").height();
             new LineChart({
                 data: compressArrayWithOther(data,5,"an", "total"),
-                canvas: document.getElementById("chartCanvas")
+                canvas: canvas
             }).draw();
         }
     });       

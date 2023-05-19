@@ -112,7 +112,7 @@ class PieChart {
   
     drawLegend() {
       let pIndex = 0;
-      let legend = document.querySelector("div[for='myCanvas']");
+      let legend = document.querySelector("div[for='myPieChartCanvas']");
       legend.innerHTML = "";
       let ul = document.createElement("ul");
       legend.append(ul);
