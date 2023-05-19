@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start_dev": "node server.js & npm run watch-css",
-    "start": "npm run build-css && node server.js",
+    "start": "node image_compressor.js && npm run build-css && node server.js",
     "build-css": "node-sass --include-path scss scss/main.scss   static/resources/css/main.css --output-style compressed",
     "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
