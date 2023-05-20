@@ -83,6 +83,8 @@ $(function() {
         downloadAsWebP(document.getElementById('myLineChartCanvas'));
     });
 
+
+
     reloadTableData();
 });
 
@@ -94,8 +96,6 @@ function selectPage(newPage) {
 let currentFilters = {};
 let currentPage = 0;
 let currentPageSize = 10;
-
-let advancedSearchEnabled = false;
 
 function reloadTableData() {
     document.getElementById("statisticsDataTable").innerHTML = "";
@@ -284,16 +284,4 @@ function downloadAsWebP(canvas) {
     createEl.download = "chart.webp";
     createEl.click();
     createEl.remove();
-}
-
-function enableAdvancedSearch() {
-    advancedSearchEnabled = true;
-    document.getElementById("simpleFilterNavbar").style.display = 'none';
-    document.getElementById("advancedFilterNavbar").style.display = 'flex';
-}
-
-function disableAdvancedSearch() {
-    advancedSearchEnabled = false;
-    document.getElementById("simpleFilterNavbar").style.display = 'flex';
-    document.getElementById("advancedFilterNavbar").style.display = 'none';
 }
