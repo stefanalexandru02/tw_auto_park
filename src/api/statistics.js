@@ -201,10 +201,10 @@ export const GetMarca = (callback) => {
 }
 
 
-export const GetGraphicsTotalJudete = (an, categorie, callback) => {
+export const GetGraphicsTotalJudete = (an, categorie, marca, combustibil, callback) => {
     const db = new sqlite3.Database(dbFilePath);
 
-    let query = GetStatisticsQuery(an, undefined, categorie, undefined, undefined, undefined, undefined, undefined, true);
+    let query = GetStatisticsQuery(an, undefined, categorie, undefined, marca, combustibil, undefined, undefined, true);
     query = query.replace("select count(*) as total", "select judet, count(*) as total");
     query = query.replace("and judet = $judet", "");
     query = `${query} group by judet;`
@@ -226,10 +226,10 @@ export const GetGraphicsTotalJudete = (an, categorie, callback) => {
         }
     );
 } 
-export const GetGraphicsTotalCategorii = (an, judet, callback) => {
+export const GetGraphicsTotalCategorii = (an, judet, marca, combustibil, callback) => {
     const db = new sqlite3.Database(dbFilePath);
 
-    let query = GetStatisticsQuery(an, judet, undefined, undefined, undefined, undefined, undefined, undefined, true);
+    let query = GetStatisticsQuery(an, judet, undefined, undefined, marca, combustibil, undefined, undefined, true);
     query = query.replace("select count(*) as total", "select categorie, count(*) as total");
     query = `${query} group by categorie;`;
 
@@ -250,10 +250,10 @@ export const GetGraphicsTotalCategorii = (an, judet, callback) => {
         }
     );
 }
-export const GetGraphicsTotalAn = (judet, categorie, callback) => {
+export const GetGraphicsTotalAn = (judet, categorie, marca, combustibil, callback) => {
     const db = new sqlite3.Database(dbFilePath);
 
-    let query = GetStatisticsQuery(undefined, judet, categorie, undefined, undefined, undefined, undefined, undefined, true);
+    let query = GetStatisticsQuery(undefined, judet, categorie, undefined, marca, combustibil, undefined, undefined, true);
     query = query.replace("select count(*) as total", "select an, count(*) as total");
     query = query.replace("and an = $an", "");
     query = `${query} group by an;`
@@ -275,7 +275,6 @@ export const GetGraphicsTotalAn = (judet, categorie, callback) => {
         }
     );
 } 
-
 export const GetGraphicsTotalMarca = (an, judet, categorie, combustibil, callback) => {
     const db = new sqlite3.Database(dbFilePath);
 
@@ -303,7 +302,6 @@ export const GetGraphicsTotalMarca = (an, judet, categorie, combustibil, callbac
         }
     );
 } 
-
 export const GetGraphicsTotalCombustibil = (an, judet, categorie, marca, callback) => {
     const db = new sqlite3.Database(dbFilePath);
 

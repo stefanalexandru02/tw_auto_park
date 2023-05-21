@@ -164,7 +164,10 @@ export const routeRequest = (req, response) => {
             GetGraphicsTotalJudete(
                 params['an'],
                 params['categorie'],
-            (rows)=>{
+                params['marca'],
+                params['combustibil'],
+
+                (rows)=>{
                 const ani = [];
                 for( let i=0;i<rows.length;i++)
                     ani.push(rows[i]);
@@ -182,6 +185,29 @@ export const routeRequest = (req, response) => {
             GetGraphicsTotalCategorii(
                 params['an'],
                 params['judet'],
+                params['marca'],
+                params['combustibil'],
+            (rows)=>{
+                const ani = [];
+                for( let i=0;i<rows.length;i++)
+                    ani.push(rows[i]);
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.write(JSON.stringify(ani));
+                response.end();
+            });
+        });
+    }  else if(req.method === 'POST' && req.url === '/api/get_distribution_chart_data/marci_total'){
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+            const params = JSON.parse(body);
+
+            GetGraphicsTotalMarci(
+                params['an'],
+                params['judet'],
+                params['categorie'],
+                params['combustibil'],
+            
             (rows)=>{
                 const ani = [];
                 for( let i=0;i<rows.length;i++)
@@ -200,6 +226,28 @@ export const routeRequest = (req, response) => {
             GetGraphicsTotalAn(
                 params['judet'],
                 params['categorie'],
+                params['marca'],
+                params['combustibil'],
+                (rows)=>{
+                const ani = [];
+                for( let i=0;i<rows.length;i++)
+                    ani.push(rows[i]);
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.write(JSON.stringify(ani));
+                response.end();
+            });
+        });
+    } else if(req.method === 'POST' && req.url === '/api/get_distribution_chart_data/combustibil_total'){
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+            const params = JSON.parse(body);
+
+            GetGraphicsTotalAn(
+                params['an'],
+                params['judet'],
+                params['categorie'],
+                params['marca'],
             (rows)=>{
                 const ani = [];
                 for( let i=0;i<rows.length;i++)
@@ -209,7 +257,8 @@ export const routeRequest = (req, response) => {
                 response.end();
             });
         });
-    } else{
+    }
+    else{
         try {
             const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
             console.log(decodeToken(authorizationToken));
