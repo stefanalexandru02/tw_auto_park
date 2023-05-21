@@ -192,7 +192,7 @@ function reloadTableData() {
     if(currentFilters['marca'] && currentFilters['marca'] != 'TOATE') {
         payload['marca'] = currentFilters['marca'];
     }
-    if(currentFilters['cumbustibil'] && currentFilters['cumbustibil'] != 'TOATE') {
+    if(currentFilters['combustibil'] && currentFilters['combustibil'] != 'TOATE') {
         payload['combustibil'] = currentFilters['combustibil'];
     }
     $.ajax({

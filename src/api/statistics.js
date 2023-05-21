@@ -214,6 +214,8 @@ export const GetGraphicsTotalJudete = (an, categorie, marca, combustibil, callba
         { 
             $an: an,
             $categorie: categorie, 
+            $marca: marca,
+            $combustibil: combustibil
         },
         (err, rows) => {
             if(err)
@@ -238,6 +240,8 @@ export const GetGraphicsTotalCategorii = (an, judet, marca, combustibil, callbac
         { 
             $an: an,
             $judet: judet, 
+            $marca: marca,
+            $combustibil: combustibil
         },
         (err, rows) => {
             if(err)
@@ -263,6 +267,8 @@ export const GetGraphicsTotalAn = (judet, categorie, marca, combustibil, callbac
         { 
             $judet: judet,
             $categorie: categorie, 
+            $marca: marca,
+            $combustibil: combustibil
         },
         (err, rows) => {
             if(err)
@@ -278,7 +284,7 @@ export const GetGraphicsTotalAn = (judet, categorie, marca, combustibil, callbac
 export const GetGraphicsTotalMarca = (an, judet, categorie, combustibil, callback) => {
     const db = new sqlite3.Database(dbFilePath);
 
-    let query = GetStatisticsQuery(an, judet, undefined,undefined,combustibil, undefined, undefined, undefined, true);
+    let query = GetStatisticsQuery(an, judet, categorie,undefined,combustibil, undefined, undefined, undefined, true);
     query = query.replace("select count(*) as total", "select marca, count(*) as total");
     query = query.replace("and marca = $marca", "");
     query = `${query} group by marca;`
@@ -305,7 +311,7 @@ export const GetGraphicsTotalMarca = (an, judet, categorie, combustibil, callbac
 export const GetGraphicsTotalCombustibil = (an, judet, categorie, marca, callback) => {
     const db = new sqlite3.Database(dbFilePath);
 
-    let query = GetStatisticsQuery(an, judet, undefined,undefined,marca, undefined, undefined, undefined, true);
+    let query = GetStatisticsQuery(an, judet, categorie,undefined,marca, undefined, undefined, undefined, true);
     query = query.replace("select count(*) as total", "select combustibil, count(*) as total");
     query = query.replace("and combustibil = $combustibil", "");
     query = `${query} group by combustibil;`
