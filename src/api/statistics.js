@@ -167,6 +167,39 @@ export const GetAni = (callback) => {
         }
     );
 }
+export const GetCombustibil = (callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+    db.all(
+        'select distinct combustibil from masini;', 
+        { },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+}
+export const GetMarca = (callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+    db.all(
+        'select distinct marca from masini;', 
+        { },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+}
+
 
 export const GetGraphicsTotalJudete = (an, categorie, callback) => {
     const db = new sqlite3.Database(dbFilePath);
@@ -230,6 +263,62 @@ export const GetGraphicsTotalAn = (judet, categorie, callback) => {
         { 
             $judet: judet,
             $categorie: categorie, 
+        },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+} 
+
+export const GetGraphicsTotalMarca = (an, judet, categorie, combustibil, callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+
+    let query = GetStatisticsQuery(an, judet, undefined,undefined,combustibil, undefined, undefined, undefined, true);
+    query = query.replace("select count(*) as total", "select marca, count(*) as total");
+    query = query.replace("and marca = $marca", "");
+    query = `${query} group by marca;`
+
+    db.all(
+        query,
+        { 
+            $an: an,
+            $judet: judet,
+            $categorie: categorie, 
+            $combustibil: combustibil,
+        },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+} 
+
+export const GetGraphicsTotalCombustibil = (an, judet, categorie, marca, callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+
+    let query = GetStatisticsQuery(an, judet, undefined,undefined,marca, undefined, undefined, undefined, true);
+    query = query.replace("select count(*) as total", "select combustibil, count(*) as total");
+    query = query.replace("and combustibil = $combustibil", "");
+    query = `${query} group by combustibil;`
+
+    db.all(
+        query,
+        { 
+            $an: an,
+            $judet: judet,
+            $categorie: categorie, 
+            $marca: marca,
         },
         (err, rows) => {
             if(err)

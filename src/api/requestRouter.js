@@ -1,6 +1,6 @@
 import { decodeToken, loginUser, registerUser } from "./login.js";
 import {getParams} from '../utilities.js';
-import { GetJudete, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete, GetGraphicsTotalCategorii, GetGraphicsTotalAn } from "./statistics.js";
+import { GetJudete, GetMarca, GetCombustibil, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete, GetGraphicsTotalCategorii, GetGraphicsTotalAn } from "./statistics.js";
 import fs from 'fs';
 import crypto from 'crypto';
 
@@ -89,7 +89,26 @@ export const routeRequest = (req, response) => {
             response.write(JSON.stringify(ani));
             response.end();
         });
-    } else if(req.method === 'POST' && req.url === '/api/statistics/generate_csv') {
+    } else if(req.method === 'GET' && req.url === '/api/statistics/marca') {
+        GetMarca((rows)=>{
+            const marci = [];
+            for( let i=0;i<rows.length;i++)
+                marci.push(rows[i]["marca"]);
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify(marci));
+            response.end();
+        });
+    }else if(req.method === 'GET' && req.url === '/api/statistics/combustibil') {
+        GetCombustibil((rows)=>{
+            const combustibil = [];
+            for( let i=0;i<rows.length;i++)
+                combustibil.push(rows[i]["combustibil"]);
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.write(JSON.stringify(combustibil));
+            response.end();
+        });
+    }
+    else if(req.method === 'POST' && req.url === '/api/statistics/generate_csv') {
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();

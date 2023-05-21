@@ -42,6 +42,27 @@ $(function() {
         }
     });
 
+    $.ajax({
+        url: "/api/statistics/marca",
+        type: "GET",
+        success: function(data) { 
+            data.map(element => {
+                $('#marcaFilterPicker').append(`<option value=${element.replace(" ", "_")}>${element}</option>`)
+            });
+        }
+    });
+
+    $.ajax({
+        url: "/api/statistics/combustibil",
+        type: "GET",
+        success: function(data) { 
+            data.map(element => {
+                $('#combustibilFilterPicker').append(`<option value=${element.replace(" ", "_")}>${element}</option>`)
+            });
+        }
+    });
+
+
     $('#judetFilterPicker').on('change', function() {
         currentFilters['judet'] = this.value; currentPage = 0;
         reloadTableData();
@@ -54,6 +75,15 @@ $(function() {
         currentFilters['an'] = this.value; currentPage = 0;
         reloadTableData();
     });
+    $('#marcaFilterPicker').on('change', function() {
+        currentFilters['marca'] = this.value; currentPage = 0;
+        reloadTableData();
+    });
+    $('#combustibilFilterPicker').on('change', function() {
+        currentFilters['combustibil'] = this.value; currentPage = 0;
+        reloadTableData();
+    });
+
 
     $('#elementsPerPageSelector').on('change', function() {
         currentPageSize = $('#elementsPerPageSelector').val();
@@ -113,6 +143,14 @@ function reloadTableData() {
     {
         query = `${query}&an=${currentFilters['an']}`;
     }
+    if(currentFilters['marca'] && currentFilters['marca'] != 'TOATE')
+    {
+        query = `${query}&marca=${currentFilters['marca'].replace(" ", "_")}`;
+    }
+    if(currentFilters['combustibil'] && currentFilters['combustibil'] != 'TOATE')
+    {
+        query = `${query}&combustibil=${currentFilters['combustibil'].replace(" ", "_")}`;
+    }
     $.ajax({
         url: query,
         type: "GET",
@@ -150,6 +188,12 @@ function reloadTableData() {
     }
     if(currentFilters['an'] && currentFilters['an'] != 'TOATE') {
         payload['an'] = currentFilters['an'];
+    }
+    if(currentFilters['marca'] && currentFilters['marca'] != 'TOATE') {
+        payload['marca'] = currentFilters['marca'];
+    }
+    if(currentFilters['cumbustibil'] && currentFilters['cumbustibil'] != 'TOATE') {
+        payload['combustibil'] = currentFilters['combustibil'];
     }
     $.ajax({
         url: "/api/get_distribution_chart_data/judete_total",
@@ -261,6 +305,12 @@ function downloadCSV() {
     }
     if(currentFilters['an'] && currentFilters['an'] != 'TOATE') {
         payload['an'] = currentFilters['an'];
+    }
+    if(currentFilters['combustibil'] && currentFilters['combustibil'] != 'TOATE') {
+        payload['combustibil'] = currentFilters['combustibil'].replace("_", " ");
+    }
+    if(currentFilters['marca'] && currentFilters['marca'] != 'TOATE') {
+        payload['marca'] = currentFilters['marca'].replace("_", " ");
     }
     $.ajax({
         url: "/api/statistics/generate_csv",
