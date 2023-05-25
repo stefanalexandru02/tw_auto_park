@@ -1,6 +1,6 @@
 import { decodeToken, loginUser, registerUser } from "./login.js";
 import {getParams} from '../utilities.js';
-import { GetJudete, GetMarca, GetCombustibil, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete, GetGraphicsTotalCategorii, GetGraphicsTotalAn } from "./statistics.js";
+import { GetJudete, GetMarca, GetCombustibil, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete, GetGraphicsTotalCategorii, GetGraphicsTotalAn, SaveSearchForUser } from "./statistics.js";
 import fs from 'fs';
 import crypto from 'crypto';
 
@@ -98,7 +98,7 @@ export const routeRequest = (req, response) => {
             response.write(JSON.stringify(marci));
             response.end();
         });
-    }else if(req.method === 'GET' && req.url === '/api/statistics/combustibil') {
+    } else if(req.method === 'GET' && req.url === '/api/statistics/combustibil') {
         GetCombustibil((rows)=>{
             const combustibil = [];
             for( let i=0;i<rows.length;i++)
@@ -107,8 +107,7 @@ export const routeRequest = (req, response) => {
             response.write(JSON.stringify(combustibil));
             response.end();
         });
-    }
-    else if(req.method === 'POST' && req.url === '/api/statistics/generate_csv') {
+    } else if(req.method === 'POST' && req.url === '/api/statistics/generate_csv') {
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -196,7 +195,7 @@ export const routeRequest = (req, response) => {
                 response.end();
             });
         });
-    }  else if(req.method === 'POST' && req.url === '/api/get_distribution_chart_data/marci_total'){
+    } else if(req.method === 'POST' && req.url === '/api/get_distribution_chart_data/marci_total'){
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -257,8 +256,28 @@ export const routeRequest = (req, response) => {
                 response.end();
             });
         });
-    }
-    else{
+    } else if(req.method === 'POST' && req.url === '/api/save_search') {
+        try {
+            let body = '';
+            req.on('data', chunk => {
+                body += chunk.toString();
+
+                const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
+                const username = decodeToken(authorizationToken).username;
+                const search = JSON.parse(body).search;
+                console.log(`Saving search for ${username}`);
+
+                SaveSearchForUser(username, search, (result) => {
+                    response.writeHead(201, { 'Content-Type': 'application/json' });
+                    response.end(`${result}`);
+                });
+            });
+        } catch(ex) {
+            response.writeHead(401, { 'Content-Type': 'application/json' });
+            response.write('');
+            response.end();
+        }
+    } else{
         try {
             const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
             console.log(decodeToken(authorizationToken));

@@ -335,3 +335,44 @@ export const GetGraphicsTotalCombustibil = (an, judet, categorie, marca, callbac
         }
     );
 } 
+
+export const SaveSearchForUser = (username, search, callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+
+    db.run(`insert into saved_searches (username,nume, added_time, filters) values ('${username}', 'cautare noua', '${getDate()}', '${search}');`,
+        (err, a) => {
+            if(err)
+            {
+                console.log(err);
+                callback(false);
+            }
+            db.close();
+            callback(true);
+        }
+    );
+}
+
+const getDate = () => {
+    let date_ob = new Date();
+    // current date
+    // adjust 0 before single digit date
+    let date = ("0" + date_ob.getDate()).slice(-2);
+
+    // current month
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+    // current year
+    let year = date_ob.getFullYear();
+
+    // current hours
+    let hours = date_ob.getHours();
+
+    // current minutes
+    let minutes = date_ob.getMinutes();
+
+    // current seconds
+    let seconds = date_ob.getSeconds();
+
+    // prints date in YYYY-MM-DD format
+    return date + "-" + month + "-" + year;
+}

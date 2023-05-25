@@ -23,6 +23,15 @@ db.exec(`
         username  VARCHAR(50),
         password   VARCHAR(50)
     );
+
+    CREATE TABLE saved_searches 
+    (
+        id         INTEGER PRIMARY KEY AUTOINCREMENT,
+        username   VARCHAR(50),
+        nume       VARCHAR(50),
+        added_time TEXT,
+        filters    TEXT
+    );
 `, ()=> {
     db.run("insert into users (username,password) values ('test', 'test');");
     fs.readdir(".", (err, files) => {

@@ -118,7 +118,27 @@ $(function() {
         downloadAsWebP(document.getElementById('myLineChartCanvas'));
     });
 
-
+    $('#saveSearchButton').on('click', function() {
+        const token = localStorage.getItem("token");
+        if(token === null || token === undefined || token === "") { return; }
+        $.ajax({
+            url: "/api/save_search",
+            type: "POST",
+            data: JSON.stringify({
+                search: JSON.stringify(currentFilters)
+            }), 
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            success: function(data) {
+                if(data === 'true' || data === true) {
+                    alert("Salvat cu succes");
+                } else {
+                    alert("Eroare la salvare");
+                }
+            }
+        }); 
+    });
 
     reloadTableData();
 });
