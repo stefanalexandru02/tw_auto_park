@@ -6,6 +6,11 @@ $(function() {
         $('#elementsPerPageSelector').val(currentPageSize);
     }
 
+    const token = localStorage.getItem("token");
+    if(token === null || token === undefined || token === "") {
+        document.getElementById("saveSearchButton").style.display = 'none';
+    }
+
     $.ajax({
         url: "/api/statistics/judete",
         type: "GET",

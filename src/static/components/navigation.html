@@ -53,6 +53,7 @@
             if(e.status === 401) {
                 $('#login_link').append("<p>Autentifica</p>");
                 $('#login_link').attr("href", "/login.html");
+                localStorage.setItem("token", "");
             } else if(e.status === 200) {
                 $('#login_link').append("<p>Contul meu</p>");
                 $('#login_link').attr("href", "/admin.html");
