@@ -352,6 +352,23 @@ export const SaveSearchForUser = (username, search, callback) => {
     );
 }
 
+export const GetSearchesForUser = (username, callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+    db.all(
+        `select * from saved_searches where username='${username}';`, 
+        { },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+}
+
 const getDate = () => {
     let date_ob = new Date();
     // current date
