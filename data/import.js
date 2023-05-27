@@ -32,7 +32,16 @@ db.exec(`
         added_time TEXT,
         filters    TEXT
     );
+
+    CREATE TABLE mesaje_primite
+    (
+
+        mesaj    TEXT,
+        added_time     TEXT
+
+    );
 `, ()=> {
+    db.run("insert into users (username,password) values ('admin', 'admin');");
     db.run("insert into users (username,password) values ('test', 'test');");
     fs.readdir(".", (err, files) => {
         files.forEach(file => {

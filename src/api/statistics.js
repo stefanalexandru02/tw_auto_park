@@ -339,7 +339,7 @@ export const GetGraphicsTotalCombustibil = (an, judet, categorie, marca, callbac
 export const SaveSearchForUser = (username, search, callback) => {
     const db = new sqlite3.Database(dbFilePath);
 
-    db.run(`insert into saved_searches (username,nume, added_time, filters) values ('${username}', 'cautare noua', '${getDate()}', '${search}');`,
+    db.run(`insert into saved_searches (username,nume, added_time, filters) values ('${username}', 'cautare', '${getDate()}', '${search}');`,
         (err, a) => {
             if(err)
             {
@@ -369,7 +369,7 @@ export const GetSearchesForUser = (username, callback) => {
     );
 }
 
-const getDate = () => {
+export const getDate = () => {
     let date_ob = new Date();
     // current date
     // adjust 0 before single digit date

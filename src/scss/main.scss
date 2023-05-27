@@ -341,7 +341,39 @@ tr:nth-child(even) {
   }
 }
 
+.sexy-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff4081;
+  border: none;
+  border-radius: 30px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sexy-button:hover {
+  background-color: #d81b60;
+}
 
 
+.sexy-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #999;
+  border: none;
+  border-radius: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-
+.sexy-button:hover {
+  background-color: #777;
+}

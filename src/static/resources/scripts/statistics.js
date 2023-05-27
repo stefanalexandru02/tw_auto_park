@@ -35,6 +35,14 @@ $(function() {
             data.map(element => {
                 $('#categorieFilterPicker').append(`<option value=${element.replace(" ", "_")}>${element}</option>`)
             });
+
+            if(window.sessionStorage.getItem('categorie') && window.sessionStorage.getItem('categorie') !== 'undefined')
+            {
+                $('#categorieFilterPicker').val(window.sessionStorage.getItem('categorie'));
+                currentFilters['categorie'] = window.sessionStorage.getItem('categorie');
+                reloadTableData();
+                window.sessionStorage.setItem('categorie', undefined);
+            }
         }
     });
     $.ajax({
@@ -44,6 +52,14 @@ $(function() {
             data.map(element => {
                 $('#anFilterPicker').append(`<option value=${element}>${element}</option>`)
             });
+
+            if(window.sessionStorage.getItem('an') && window.sessionStorage.getItem('an') !== 'undefined')
+            {
+                $('#anFilterPicker').val(window.sessionStorage.getItem('an'));
+                currentFilters['an'] = window.sessionStorage.getItem('an');
+                reloadTableData();
+                window.sessionStorage.setItem('an', undefined);
+            }
         }
     });
 
@@ -54,6 +70,13 @@ $(function() {
             data.map(element => {
                 $('#marcaFilterPicker').append(`<option value=${element.replace(" ", "_")}>${element}</option>`)
             });
+            if(window.sessionStorage.getItem('marca') && window.sessionStorage.getItem('marca') !== 'undefined')
+            {
+                $('#marcaFilterPicker').val(window.sessionStorage.getItem('marca'));
+                currentFilters['marca'] = window.sessionStorage.getItem('marca');
+                reloadTableData();
+                window.sessionStorage.setItem('marca', undefined);
+            }
         }
     });
 
@@ -64,6 +87,13 @@ $(function() {
             data.map(element => {
                 $('#combustibilFilterPicker').append(`<option value=${element.replace(" ", "_")}>${element}</option>`)
             });
+            if(window.sessionStorage.getItem('combustibil') && window.sessionStorage.getItem('combustibil') !== 'undefined')
+            {
+                $('#combustibilFilterPicker').val(window.sessionStorage.getItem('combustibil'));
+                currentFilters['combustibil'] = window.sessionStorage.getItem('combustibil');
+                reloadTableData();
+                window.sessionStorage.setItem('combustibil', undefined);
+            }
         }
     });
 
@@ -153,6 +183,15 @@ let currentPage = 0;
 let currentPageSize = 10;
 
 function reloadTableData() {
+    const sessionKeys = Object.keys(window.sessionStorage);
+    for(let i = 0; i < sessionKeys.length; i++) {
+        if(window.sessionStorage[sessionKeys[i]] && 
+            window.sessionStorage[sessionKeys[i]] !== 'undefined') {
+                setTimeout(()=>{reloadTableData();}, 1000);
+                return;
+            }
+    }
+
     document.getElementById("statisticsDataTable").innerHTML = "";
     document.getElementById("pageListContainer").innerHTML = "";
     let query = `/api/get_statistics?pageIndex=${currentPage}&pageSize=${currentPageSize}`;

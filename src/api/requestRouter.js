@@ -3,6 +3,7 @@ import {getParams} from '../utilities.js';
 import { GetJudete, GetMarca, GetCombustibil, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete, GetGraphicsTotalCategorii, GetGraphicsTotalAn, SaveSearchForUser, GetSearchesForUser } from "./statistics.js";
 import fs from 'fs';
 import crypto from 'crypto';
+import { AddNewMessage, GetMesaje } from "./messages.js";
 
 export const routeRequest = (req, response) => {
     if(req.method === 'POST' && req.url === '/api/authenticate_user') {
@@ -147,7 +148,7 @@ export const routeRequest = (req, response) => {
             console.log(decodeToken(authorizationToken));
 
             response.writeHead(200, { 'Content-Type': 'application/json' });
-            response.write('OK');
+            response.write(decodeToken(authorizationToken).username);
             response.end();
         } catch(ex) {
             response.writeHead(401, { 'Content-Type': 'application/json' });
@@ -275,6 +276,44 @@ export const routeRequest = (req, response) => {
         } catch(ex) {
             response.writeHead(401, { 'Content-Type': 'application/json' });
             response.write('');
+            response.end();
+        }
+    }else if(req.method === 'POST' && req.url === '/api/mesaje'){
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+
+            const payload = JSON.parse(body);
+            const mesaj = payload["mesaj"];
+
+            AddNewMessage(mesaj, (result) => {
+                response.writeHead(201, { 'Content-Type': 'application/json' });
+                response.end(`${result}`);
+            });
+        });
+
+    }else if(req.method === 'GET' && req.url === '/api/mesaje'){
+        try {
+            const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
+            const username = decodeToken(authorizationToken).username;
+            if(username!=="admin") {
+                response.writeHead(401, { 'Content-Type': 'application/json' });
+                response.write(ex);
+                response.end();
+            } else {
+                GetMesaje( (rows) => {
+                    const mesaje = [];
+                    for( let i=0;i<rows.length;i++)
+                        mesaje.push(rows[i]);
+                    response.writeHead(200, { 'Content-Type': 'application/json' });
+                    response.write(JSON.stringify(mesaje));
+                    response.end();
+                 });
+            }    
+        } catch(ex) {
+            response.writeHead(401, { 'Content-Type': 'application/json' });
+            console.log(ex);
+            response.write(ex);
             response.end();
         }
     } else if(req.method === 'GET' && req.url === '/api/get_searches'){

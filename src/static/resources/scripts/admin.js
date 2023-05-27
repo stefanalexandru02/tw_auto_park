@@ -1,22 +1,18 @@
-let savedSearches = {};
+let savedMessages = {};
 
 $(function() {
     $.ajax({
-        url: "/api/get_searches",
+        url: "/api/mesaje",
         type: "GET",
         headers: {
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         },
         success: function(data) {
-            data.map((row,index) => {
-                savedSearches[row['id']] = JSON.parse(row['filters']);
-                $('#searchesDataTable').append(`
+            data.map((row) => {
+                $('#messagesDataTable').append(`
                 <tr data-aos="fade-up">
                 <td>${row['added_time']}</td>
-                <td>${row['nume']} ${index+1}</td>
-                <td>
-                    <button class="eye-button" onclick="loadSearch(${row['id']})"><i class="fas fa-eye"></i></button>
-                </td>
+                <td>${row['mesaj']}</td>
                 </tr>`
               ); 
             });
