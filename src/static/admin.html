@@ -7,6 +7,31 @@
     <script src="resources/scripts/layout_loader.js"></script>
     <link rel="stylesheet" href="resources/css/main.css">
     <script src="resources/scripts/admin.js"></script>
+
+    <style>
+      /* Styling for the button */
+      .logout-button {
+        background-color: #888888;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+    <script>
+      function Logout(){
+        window.localStorage.clear();
+        window.location.href="/";
+      }
+    </script>
+
   </head>
   <body>
     <div id="nav-placeholder"></div>
@@ -20,6 +45,8 @@
           <tbody id="messagesDataTable">
           </tbody>
         </table>
+        <br/>
+        <button class="logout-button" onclick="Logout()">Logout</button>
     </div>
   </body>
 </html>
