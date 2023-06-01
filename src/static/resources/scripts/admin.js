@@ -19,6 +19,20 @@ $(function() {
         }
         
     }); 
+    
+    $.ajax({
+        url: "/api/get_admin_statistics_register_users",
+        type: "GET",
+        success: function(data) {
+            const canvas = document.getElementById("myLineChartCanvas");
+            canvas.width = $("#myLineChartContainer").width();
+            canvas.height = $("#myLineChartContainer").height();
+            new LineChart({
+                data: compressArrayWithoutOther(data,"data", "numar"),
+                canvas: canvas
+            }).draw();
+        }
+    });   
 });
 
 const loadSearch = (id) => {

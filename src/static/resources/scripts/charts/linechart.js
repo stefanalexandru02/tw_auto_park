@@ -2,6 +2,8 @@ class LineChart {
     constructor(options) {
         this.data = options.data;
         this.canvas = options.canvas;
+
+        console.log(this.data);
     }
   
     draw() {

@@ -21,7 +21,8 @@ db.exec(`
     CREATE TABLE users
     (
         username  VARCHAR(50),
-        password   VARCHAR(50)
+        password   VARCHAR(50),
+        added_time TEXT
     );
 
     CREATE TABLE saved_searches 
@@ -41,8 +42,15 @@ db.exec(`
 
     );
 `, ()=> {
-    db.run("insert into users (username,password) values ('admin', 'admin');");
-    db.run("insert into users (username,password) values ('test', 'test');");
+    db.run("insert into users (username,password,added_time) values ('admin', 'admin', '24-05-2023');");
+    db.run("insert into users (username,password,added_time) values ('test', 'test', '24-05-2023');");
+    db.run("insert into users (username,password,added_time) values ('test1', 'test1', '26-05-2023');");
+    db.run("insert into users (username,password,added_time) values ('test2', 'test2', '26-05-2023');");
+    db.run("insert into users (username,password,added_time) values ('test3', 'test3', '26-05-2023');");
+    db.run("insert into users (username,password,added_time) values ('test4', 'test4', '26-05-2023');");
+    db.run("insert into users (username,password,added_time) values ('test5', 'test5', '26-05-2023');");
+    db.run("insert into users (username,password,added_time) values ('test6', 'test6', '26-05-2023');");
+
     fs.readdir(".", (err, files) => {
         files.forEach(file => {
             if(file.includes(".csv"))

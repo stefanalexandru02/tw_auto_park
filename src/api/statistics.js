@@ -393,3 +393,20 @@ export const getDate = () => {
     // prints date in YYYY-MM-DD format
     return date + "-" + month + "-" + year;
 }
+
+export const GetStatisticsRegisterUsers = (callback) => {
+    const db = new sqlite3.Database(dbFilePath);
+    db.all(
+        `select count(*) * 101 as numar, added_time as data from users group by added_time`,
+        { },
+        (err, rows) => {
+            if(err)
+            {
+                console.log(err);
+                callback(err);
+            }
+            db.close();
+            callback(rows);
+        }
+    );
+}

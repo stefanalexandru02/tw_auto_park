@@ -1,6 +1,6 @@
 import { decodeToken, loginUser, registerUser } from "./login.js";
 import {getParams} from '../utilities.js';
-import { GetJudete, GetMarca, GetCombustibil, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete, GetGraphicsTotalCategorii, GetGraphicsTotalAn, SaveSearchForUser, GetSearchesForUser } from "./statistics.js";
+import { GetJudete, GetMarca, GetCombustibil, GetStatistics, GetCategorii, GetAni, GetGraphicsTotalJudete, GetGraphicsTotalCategorii, GetGraphicsTotalAn, SaveSearchForUser, GetSearchesForUser, GetStatisticsRegisterUsers } from "./statistics.js";
 import fs from 'fs';
 import crypto from 'crypto';
 import { AddNewMessage, GetMesaje } from "./messages.js";
@@ -63,6 +63,16 @@ export const routeRequest = (req, response) => {
                 response.end();
             }
         );
+    } else if(req.method === 'GET' && req.url === '/api/get_admin_statistics_register_users') {
+        GetStatisticsRegisterUsers(
+            (rows) => {
+                const judete = [];
+                for( let i=0;i<rows.length;i++)
+                    judete.push(rows[i]);
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.write(JSON.stringify(judete));
+                response.end();
+            });
     } else if(req.method === 'GET' && req.url === '/api/statistics/judete') {
         GetJudete((rows)=>{
             const judete = [];

@@ -1,5 +1,6 @@
 import sqlite3 from 'sqlite3';
 import jwt from 'jsonwebtoken';
+import { getDate } from './statistics.js';
 const dbFilePath = "../database.db";
 
 export const loginUser = (username, password, callback) => {
@@ -40,10 +41,11 @@ export const registerUser = (username, password, callback) =>{
             db.close();
             
             if(found === 0) {
-                db.run("insert into users (username,password) values ($username, $password);",
+                db.run("insert into users (username,password, added_time) values ($username, $password, $time);",
                 {
                     $username: username,
-                    $password: password
+                    $password: password,
+                    $time: getDate()
                 }, (errInsert, e) => {
                     callback("OK");
                 });
