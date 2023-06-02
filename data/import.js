@@ -49,8 +49,13 @@ export const runAll = (manual = false, callback = ()=>{}) => {
         db.run("insert into users (username,password,added_time) values ('test2', 'test2', '26-05-2023');");
         db.run("insert into users (username,password,added_time) values ('test3', 'test3', '26-05-2023');");
         db.run("insert into users (username,password,added_time) values ('test4', 'test4', '26-05-2023');");
-        db.run("insert into users (username,password,added_time) values ('test5', 'test5', '26-05-2023');");
-        db.run("insert into users (username,password,added_time) values ('test6', 'test6', '26-05-2023');");
+        db.run("insert into users (username,password,added_time) values ('test5', 'test5', '01-06-2023');");
+        db.run("insert into users (username,password,added_time) values ('test7', 'test7', '01-06-2023');");
+        db.run("insert into users (username,password,added_time) values ('test8', 'test8', '01-06-2023');");
+        db.run("insert into users (username,password,added_time) values ('test9', 'test9', '01-06-2023');");
+        db.run("insert into users (username,password,added_time) values ('test10', 'test10', '01-06-2023');");
+        db.run("insert into users (username,password,added_time) values ('test11', 'test11', '02-06-2023');");
+        db.run("insert into users (username,password,added_time) values ('test12', 'test12', '02-06-2023');");
 
         fs.readdir(".", (err, files) => {
             files.forEach(file => {

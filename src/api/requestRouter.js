@@ -5,7 +5,6 @@ import fs from 'fs';
 import crypto from 'crypto';
 import { AddNewMessage, GetMesaje } from "./messages.js";
 import formidable from "formidable";
-import { runAll } from "../../data/import.js";
 
 export const routeRequest = (req, response) => {
     if(req.method === 'POST' && req.url === '/api/authenticate_user') {
@@ -356,14 +355,14 @@ export const routeRequest = (req, response) => {
             return;
           }
           fs.copyFileSync(files['pickFile'].filepath, "../data/_import.qq1");
-          runAll(true, () => {
-            response.writeHead(200, { 'Content-Type': 'application/html' });
-            response.write(`
-            Actualizat cu succes
-            `);
-            fs.unlink("../data/_import.qq1");
-            response.end();
-          });
+        //   runAll(true, () => {
+        //     response.writeHead(200, { 'Content-Type': 'application/html' });
+        //     response.write(`
+        //     Actualizat cu succes
+        //     `);
+        //     fs.unlink("../data/_import.qq1");
+        //     response.end();
+        //   });
         });
     } else {
         console.log(`Unrecognized request: ${req.method} ${req.url}`)
