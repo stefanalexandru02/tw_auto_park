@@ -27,8 +27,9 @@ $(function() {
             const canvas = document.getElementById("myLineChartCanvas");
             canvas.width = $("#myLineChartContainer").width();
             canvas.height = $("#myLineChartContainer").height();
-            new LineChart({
+            new BarChart({
                 data: compressArrayWithoutOther(data,"data", "numar"),
+                colors: ["#74413e","#975451","#a05651","#de827a","#bf8784","#64302e",],
                 canvas: canvas
             }).draw();
         }
