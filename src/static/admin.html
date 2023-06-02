@@ -59,6 +59,15 @@
           </div>
         </div>
 
+        <hr/>
+
+        <form enctype="multipart/form-data" action="/api/admin/upload_csv" method="post">
+          <label for="pickFile">Alege fisier:</label>
+          <input type="file" id="pickFile" name="pickFile"><br><br>
+          <input type="submit" value="Incarca">
+        </form>
+        
+        <hr/>
         
         <button class="logout-button" onclick="Logout()">Logout</button>
     </div>

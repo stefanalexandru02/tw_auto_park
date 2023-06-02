@@ -2,7 +2,7 @@ import fs from 'fs';
 import sqlite3 from 'sqlite3';
 const dbFilePath = "../database.db";
 
-export const runAll = () => {
+export const runAll = (manual = false, callback = ()=>{}) => {
     try { fs.unlinkSync(dbFilePath); } catch(e) { }
 
     const db = connectToDatabase();
@@ -54,10 +54,10 @@ export const runAll = () => {
 
         fs.readdir(".", (err, files) => {
             files.forEach(file => {
-                if(file.includes(".csv"))
+                if(manual === false && file.includes(".csv") || manual === true && file.includes(".qq1"))
                 {
                     let elements = [];
-                    const year = file.replace("parcauto", "").replace("combustibil", "").replace(".csv", "");
+                    const year = manual === false ? file.replace("parcauto", "").replace("combustibil", "").replace(".csv", "") : 2023;
                     console.log(year);
                     let fLine = true;
                     const allFileContents = fs.readFileSync(file, 'utf-8');
@@ -127,6 +127,10 @@ export const runAll = () => {
                 }
             });
         });
+
+        if(manual) {
+            callback();
+        }
     });
 
     function connectToDatabase() {

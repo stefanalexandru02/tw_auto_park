@@ -4,6 +4,8 @@ import { GetJudete, GetMarca, GetCombustibil, GetStatistics, GetCategorii, GetAn
 import fs from 'fs';
 import crypto from 'crypto';
 import { AddNewMessage, GetMesaje } from "./messages.js";
+import formidable from "formidable";
+import { runAll } from "../../data/import.js";
 
 export const routeRequest = (req, response) => {
     if(req.method === 'POST' && req.url === '/api/authenticate_user') {
@@ -288,7 +290,7 @@ export const routeRequest = (req, response) => {
             response.write('');
             response.end();
         }
-    }else if(req.method === 'POST' && req.url === '/api/mesaje'){
+    } else if(req.method === 'POST' && req.url === '/api/mesaje'){
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -302,7 +304,7 @@ export const routeRequest = (req, response) => {
             });
         });
 
-    }else if(req.method === 'GET' && req.url === '/api/mesaje'){
+    } else if(req.method === 'GET' && req.url === '/api/mesaje'){
         try {
             const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
             const username = decodeToken(authorizationToken).username;
@@ -345,7 +347,26 @@ export const routeRequest = (req, response) => {
             response.write(ex);
             response.end();
         }
-    } else{
+    } else if(req.method === 'POST' && req.url === '/api/admin/upload_csv') {
+        console.log('file is uploaded');
+        const form = formidable({ multiples: true })
+        form.parse(req, (error, fields, files) => {
+          if (error) {
+            console.log(error)
+            return;
+          }
+          fs.copyFileSync(files['pickFile'].filepath, "../data/_import.qq1");
+          runAll(true, () => {
+            response.writeHead(200, { 'Content-Type': 'application/html' });
+            response.write(`
+            Actualizat cu succes
+            `);
+            fs.unlink("../data/_import.qq1");
+            response.end();
+          });
+        });
+    } else {
+        console.log(`Unrecognized request: ${req.method} ${req.url}`)
         try {
             const authorizationToken = req.headers['authorization'].replace("Bearer ", "");
             console.log(decodeToken(authorizationToken));
